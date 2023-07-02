@@ -24,7 +24,7 @@ The webpage will enable a virtually hosted draft, mimicking the traditional phys
 * **Front-End Development:** The front-end user interface will be designed using React and will uphold best practices to provide the user with a pleasant draft experience. Class components such as App.js, DraftBoard.js, AvailablePlayerList.js, and TeamManagement.js will be used to build different sections of the webpage.
 * **Back-End Development:** The back-end will be integrated using NodeJS. NodeJS will be used to develop and access the required APIs for the draft tool and subsequently populate a database with active players in the NFL.
 
-
+Please read our full [Project Proposal](https://github.com/dh2225/CS312-Fantasy-Draft/blob/main/project-proposal.md) document for more details on the specifics of our project. Keep in mind we will be continually updating the project proposal and repository in the coming weeks.
 
 
 
