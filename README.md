@@ -2,7 +2,7 @@
 CS312 Web Programming II - In-person Fantasy Football Draft Tool using React &amp; NodeJS
 
 ## Team Information:
-* Brandon J Shaffer
+* Brandon James Shaffer
   * Email: bjs397@nau.edu
   * Github: https://github.com/brandonbjs
 * Drew J Heller
