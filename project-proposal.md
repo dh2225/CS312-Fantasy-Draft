@@ -6,6 +6,7 @@
 - Brandon J Shaffer 
   - Email: bjs397@nau.edu
   - GitHub: https://github.com/brandonbjs
+#### **GitHub Project Repository link:** https://github.com/dh2225/CS312-Fantasy-Draft
 ## Project Idea:
 The objective of this project is to create a webpage that serves as a tool for users to host, create, manage, and participate in in-person fantasy football drafts.
 ## Project Requirements:
