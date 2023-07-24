@@ -1,3 +1,4 @@
+![Alt Text](https://github.com/dh2225/CS312-Fantasy-Draft/blob/main/images/ffdt_banner.png)
 # CS312-Fantasy-Draft
 CS312 Web Programming II - In-person Fantasy Football Draft Tool using React &amp; NodeJS
 
