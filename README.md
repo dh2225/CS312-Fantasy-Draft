@@ -17,6 +17,10 @@ The objective of this project is to create a webpage that serves as a tool for u
 The purpose of the project is to provide football fans with a tool that can be used to host, create, manage, and participate in in-person fantasy football drafts.
 By providing this platform, fantasy football fans are able to use the tool to aid in the organization, managment, and overall enjoyment of in-person drafts. 
 
+### Planning
+* **Front-End Development:** The front-end user interface will be designed using React and will uphold best practices to provide the user with a pleasant draft experience. 
+* **Back-End Development:** Our back-end MongoDB will be integrated using NodeJS. Our custom NodeJS API will make GET, POST, PUT, and DELETE requests to and from our MongoDB.
+
 ### Functionality
 The webpage will enable a virtually hosted draft, mimicking the traditional physical properties of an in-person draft. This allows for the commissioner and team managers to create teams, populate them, view the remaining players, and track drafted players. The webpage will share information about each player such as player position, team, bye week, ADP, and other relevant statistics. Through this added functionality, team managers will be better equipped to make strategic draft decisions. 
 
@@ -57,9 +61,11 @@ The webpage will enable a virtually hosted draft, mimicking the traditional phys
 * PUT - Other than making get requests, the user will also be making a large number of PUT requests during the duration of a draft. Every time an available player is drafted to a fantasy team, their “manager” field will be updated to the team name of the current drafting manager and their “status” field will be set to false. This indicates that the player is no longer available and allows them to be viewed in their respective team on the live draft board.
 * DELETE - We will never need to implement the DELETE request-response format because our application does not need to perform any hard deletions. In the event a player is no longer an active player in the NFL, we can simply utilize a PUT method to change the player's “status” from “Active” to their current status. In this way, we will implement a form of soft-deleting the players from our MongoDB rather than hard-deleting them. However, we will still include a deletion endpoint for possible developer use only.
 
-### Planning
-* **Front-End Development:** The front-end user interface will be designed using React and will uphold best practices to provide the user with a pleasant draft experience. 
-* **Back-End Development:** The back-end will be integrated using NodeJS. Our custom NodeJS API will make GET, POST, PUT, and DELETE requests to and from our MongoDB.
+#### Design References
+* Draft Board - The draft board will be in grid form showing each of the team names at the top of their respective columns. Underneath the team names will be the team’s selections. On the draft board will be an indicator that shows which team is currently picking as well as a timer. At the expiration of the timer, if the team manager has not made a selection, the top adp player will be selected.
+* Player Board - The player board will also be in grid format. The default view will show all players in order according to their average draft position or ADP. On the far left of each player row will be a button that allows the current manager to make a player selection. In the header section of the player board, there will be filtering functionality that will allow the user to filter the list according to player position.
+* Team Management Board - The team management board will allow the user to select any team and see what positions have been filled on their roster. The design will have tabs or possibly a drop down list that will allow the desired team to be displayed.  
+
 Please read our full [Project Proposal](https://github.com/dh2225/CS312-Fantasy-Draft/blob/main/project-proposal.md) document for more details on the specifics of our project. 
 
 
