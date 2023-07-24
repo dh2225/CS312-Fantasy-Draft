@@ -20,9 +20,9 @@ The webpage should allow a user to host a fantasy football draft virtually, simi
 ##### fetchPlayersEndpoint();
 * This endpoint function will be invoked when this route is used: “/fetchPlayers”
   * try: invoke the fetchPlayers() service function which attempts to retrieve data from our MongoDB
-  * 200 response upon success
+    * 200 response upon success
   * catch: Error getting players from DB
-  * 500 response upon failure
+    * 500 response upon failure
 ##### fetchPlayers();
 * Asynchronous function that has no parameters.
 * Set availablePlayers variable to the response of a find() function finding players with “status” field being true(available). 
@@ -30,11 +30,11 @@ The webpage should allow a user to host a fantasy football draft virtually, simi
 ##### updatePlayerEndpoint();
 * This endpoint function will be invoked when this route is used: “/updatePlayer”
   * try: 
-* verify id passed as parameter is valid and exists by invoking the findPlayerByID() helper function 
-* invoke the updatePlayer() service function which attempts to update data in our MongoDB
-  * 200 response upon success
+    * verify id passed as parameter is valid and exists by invoking the findPlayerByID() helper function 
+    * invoke the updatePlayer() service function which attempts to update data in our MongoDB
+      * 200 response upon success
   * catch: Error updating player in DB
-  * 500 response upon failure
+    * 500 response upon failure
 ##### updatePlayer();
 * Asynchronous function that has id and manager as parameters. 
 * Set player variable to the response of findPlayerByID().
