@@ -88,17 +88,17 @@ The webpage should allow a user to host a fantasy football draft virtually, simi
 
 
 #### Endpoint Routes:
-* **app.use("/fetchPlayers", fetchPlayersEndpoint);**
-Our first route will be the “/fetchPlayers” route which will invoke the fetchPlayersEndpoint(). This route is responsible for making a GET request to our MongoDB. The endpoint invoked will call the fetchPlayers() service method to fetch all the players from our database or throw errors and console messages upon failure.
+##### **app.use("/fetchPlayers", fetchPlayersEndpoint);**
+* Our first route will be the “/fetchPlayers” route which will invoke the fetchPlayersEndpoint(). This route is responsible for making a GET request to our MongoDB. The endpoint invoked will call the fetchPlayers() service method to fetch all the players from our database or throw errors and console messages upon failure.
 
-* **app.use("/updatePlayer", updatePlayerEndpoint);**
-Our second route will be the “/updatePlayer” route which will invoke the updatePlayerEndpoint(). This route is responsible for making a PUT request to our MongoDB. The endpoint invoked will call the updatePlayer() service method which takes an id as a parameter and updates the selected player’s “manager” and “status” or throws errors and console messages upon failure.
+##### **app.use("/updatePlayer", updatePlayerEndpoint);**
+* Our second route will be the “/updatePlayer” route which will invoke the updatePlayerEndpoint(). This route is responsible for making a PUT request to our MongoDB. The endpoint invoked will call the updatePlayer() service method which takes an id as a parameter and updates the selected player’s “manager” and “status” or throws errors and console messages upon failure.
 
-* **app.use("/addPlayer", addPlayerEndpoint);**
-Our third route will strictly be used by developers during the development phase. We are populating our own MongoDB with player data, therefore to ensure we have a smooth experience handling our database, we are implementing an “/addPlayer” endpoint. The developer must explicitly include all the fields in the JSON body (other than ID, which MongoDB generates for us by default) when using this endpoint. This endpoint will invoke the updatePlayer() service method.
+##### **app.use("/addPlayer", addPlayerEndpoint);**
+* Our third route will strictly be used by developers during the development phase. We are populating our own MongoDB with player data, therefore to ensure we have a smooth experience handling our database, we are implementing an “/addPlayer” endpoint. The developer must explicitly include all the fields in the JSON body (other than ID, which MongoDB generates for us by default) when using this endpoint. This endpoint will invoke the updatePlayer() service method.
 
-* **app.use("/deletePlayer", deletePlayerEndpoint);**
-Our last route will also strictly be used by developers during the development phase. We are populating our own MongoDB with player data, therefore to ensure we have a smooth experience handling our database, we are implementing a “/deletePlayer” endpoint. This endpoint will invoke the hardDeletePlayer() service method which takes a single id parameter and uses the deleteOne() method to hard delete a player from the database. To reiterate, this hard deletion method will only be used during the development phase and will not be a public endpoint.
+##### **app.use("/deletePlayer", deletePlayerEndpoint);**
+* Our last route will also strictly be used by developers during the development phase. We are populating our own MongoDB with player data, therefore to ensure we have a smooth experience handling our database, we are implementing a “/deletePlayer” endpoint. This endpoint will invoke the hardDeletePlayer() service method which takes a single id parameter and uses the deleteOne() method to hard delete a player from the database. To reiterate, this hard deletion method will only be used during the development phase and will not be a public endpoint.
 
 ### Design References:
 * **Draft Tool Inspiration**
