@@ -1,3 +1,4 @@
+![Alt Text](https://github.com/dh2225/CS312-Fantasy-Draft/blob/main/images/ffdt_banner.png)
 # Group Project Proposal: In-person Fantasy Football Draft Tool
 ## Team Information:
 - Drew Heller 
@@ -102,8 +103,9 @@ The webpage should allow a user to host a fantasy football draft virtually, simi
 
 ### Design References:
 * **Draft Tool Inspiration**
+![Alt Text](https://github.com/dh2225/CS312-Fantasy-Draft/blob/main/images/design-reference1.PNG)
 * **Draft Board** - The draft board will be in grid form showing each of the team names at the top of their respective columns. Underneath the team names will be the team’s selections. On the draft board will be an indicator that shows which team is currently picking as well as a timer. At the expiration of the timer, if the team manager has not made a selection, the top adp player will be selected. 
-
+![Alt Text](https://github.com/dh2225/CS312-Fantasy-Draft/blob/main/images/stat1.PNG)
 * **Player Board** - The player board will also be in grid format. The default view will show all players in order according to their average draft position or ADP. On the far left of each player row will be a button that allows the current manager to make a player selection. In the header section of the player board, there will be filtering functionality that will allow the user to filter the list according to player position. 
-
+![Alt Text](https://github.com/dh2225/CS312-Fantasy-Draft/blob/main/images/team1.PNG)
 * **Team Management Board** - The team management board will allow the user to select any team and see what positions have been filled on their roster. The design will have tabs or possibly a drop down list that will allow the desired team to be displayed. 
