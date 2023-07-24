@@ -45,7 +45,7 @@ The webpage should allow a user to host a fantasy football draft virtually, simi
 * This endpoint function will be invoked when this route is used: “/addPlayer”
   * try: 
     * verify that the user passed all the required fields
-    * Player being added must have id, adp, name, position, team, bye, manager, status
+      * Player being added must have id, adp, name, position, team, bye, manager, status
     * invoke the addPlayer() service function which attempts to add data to our MongoDB
       ○	200 response upon success
   * catch: Error adding player to DB
