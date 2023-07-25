@@ -65,7 +65,13 @@ The webpage will enable a virtually hosted draft, mimicking the traditional phys
 #### Design References
 * Draft Board - The draft board will be in grid form showing each of the team names at the top of their respective columns. Underneath the team names will be the team’s selections. On the draft board will be an indicator that shows which team is currently picking as well as a timer. At the expiration of the timer, if the team manager has not made a selection, the top adp player will be selected.
 * Player Board - The player board will also be in grid format. The default view will show all players in order according to their average draft position or ADP. On the far left of each player row will be a button that allows the current manager to make a player selection. In the header section of the player board, there will be filtering functionality that will allow the user to filter the list according to player position.
-* Team Management Board - The team management board will allow the user to select any team and see what positions have been filled on their roster. The design will have tabs or possibly a drop down list that will allow the desired team to be displayed.  
+* Team Management Board - The team management board will allow the user to select any team and see what positions have been filled on their roster. The design will have tabs or possibly a drop down list that will allow the desired team to be displayed.
+
+### Phase-1 Deliverables
+![Alt Text](https://github.com/dh2225/CS312-Fantasy-Draft/blob/main/images/phase1_deliverables.png)
+
+### Phase-2 Deliverables
+![Alt Text](https://github.com/dh2225/CS312-Fantasy-Draft/blob/main/images/phase2_deliverables.png)
 
 Please read our full [Project Proposal](https://github.com/dh2225/CS312-Fantasy-Draft/blob/main/project-proposal.md) document for more details on the specifics of our project. 
 
