@@ -1,0 +1,17 @@
+{
+  "name": "fantasy-football-api",
+  "version": "1.0.0",
+  "description": "Fantasy Football App API",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node DraftToolAPI.js"
+  },
+  "git repository": "https://github.com/dh2225/CS312-Fantasy-Draft",
+  "author": "Drew Heller & Brandon J Shaffer",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^7.4.1"
+  }
+}
