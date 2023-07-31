@@ -67,8 +67,32 @@ The webpage will enable a virtually hosted draft, mimicking the traditional phys
 * Player Board - The player board will also be in grid format. The default view will show all players in order according to their average draft position or ADP. On the far left of each player row will be a button that allows the current manager to make a player selection. In the header section of the player board, there will be filtering functionality that will allow the user to filter the list according to player position.
 * Team Management Board - The team management board will allow the user to select any team and see what positions have been filled on their roster. The design will have tabs or possibly a drop down list that will allow the desired team to be displayed.
 
-### Phase-1 Deliverables
-![Alt Text](https://github.com/dh2225/CS312-Fantasy-Draft/blob/main/images/phase1_deliverables.png)
+### Phase-1 Deliverable Report
+#### Deliverable #1 - Design Front-End: 
+The team has agreed upon an overall look and style for the front-end. From the agreed upon design, the team is better equipped to complete the Phase-2 deliverables which includes the creation of the application. 
+The draft board will be the centerpiece component which will be in grid format, showing all of the picks throughout the draft and who is currently picking. The available players section in the lower left will show all of the available players with filtering functionality. Finally, the lower right will show the team management console. This will have tabs/dropdown that will allow the user to see each team and positions that are empty/filled on their roster.
+
+![Alt Text](https://github.com/dh2225/CS312-Fantasy-Draft/blob/main/images/design-reference1.PNG)
+
+#### Deliverable #2 - Create MongoDB:
+The database was created using the command “use Fantasy_Draft”. Following the creation of the database, the collection named “players” was created to hold the documents/players for the database. See the below screenshot to see the command that created the collection as well as the first 5 documents.
+
+![Alt Text]()
+
+#### Deliverable #3 - Populate MongoDB:
+In order to test the creation of our API endpoints and Service Function code, a populated database was needed. In this deliverable, the database was populated with the first 5 players of our intended database. The initial fields were adp, name, position, team, and bye. Later, the list would be updated to have the two missing fields that are used by our api code, status and manager. The following function within mongosh was used to add these fields, db.players.updateMany({}, { "$set": { "manager": null, "status": true } }). Below is the screenshot showing the players after the initial insert.
+
+![Alt Text]()
+
+#### Deliverable #4 - Create Endpoints & Service Function Code:
+
+
+![Alt Text]()
+
+#### Deliverable #5 - Test Endpoints in Postman:
+
+
+![Alt Text]()
 
 ### Phase-2 Deliverables
 ![Alt Text](https://github.com/dh2225/CS312-Fantasy-Draft/blob/main/images/phase2_deliverables.png)
