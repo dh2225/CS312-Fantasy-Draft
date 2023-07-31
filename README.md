@@ -67,34 +67,99 @@ The webpage will enable a virtually hosted draft, mimicking the traditional phys
 * Player Board - The player board will also be in grid format. The default view will show all players in order according to their average draft position or ADP. On the far left of each player row will be a button that allows the current manager to make a player selection. In the header section of the player board, there will be filtering functionality that will allow the user to filter the list according to player position.
 * Team Management Board - The team management board will allow the user to select any team and see what positions have been filled on their roster. The design will have tabs or possibly a drop down list that will allow the desired team to be displayed.
 
-### Phase-1 Deliverable Report
-#### Deliverable #1 - Design Front-End: 
+## Phase-1 Deliverable Report
+### Deliverable #1 - Design Front-End: 
 The team has agreed upon an overall look and style for the front-end. From the agreed upon design, the team is better equipped to complete the Phase-2 deliverables which includes the creation of the application. 
 The draft board will be the centerpiece component which will be in grid format, showing all of the picks throughout the draft and who is currently picking. The available players section in the lower left will show all of the available players with filtering functionality. Finally, the lower right will show the team management console. This will have tabs/dropdown that will allow the user to see each team and positions that are empty/filled on their roster.
 
 ![Alt Text](https://github.com/dh2225/CS312-Fantasy-Draft/blob/main/images/design-reference1.PNG)
 
-#### Deliverable #2 - Create MongoDB:
+### Deliverable #2 - Create MongoDB:
 The database was created using the command “use Fantasy_Draft”. Following the creation of the database, the collection named “players” was created to hold the documents/players for the database. See the below screenshot to see the command that created the collection as well as the first 5 documents.
 
-![Alt Text]()
+![Alt Text](https://github.com/dh2225/CS312-Fantasy-Draft/blob/main/images/create-mongodb.png)
 
-#### Deliverable #3 - Populate MongoDB:
+### Deliverable #3 - Populate MongoDB:
 In order to test the creation of our API endpoints and Service Function code, a populated database was needed. In this deliverable, the database was populated with the first 5 players of our intended database. The initial fields were adp, name, position, team, and bye. Later, the list would be updated to have the two missing fields that are used by our api code, status and manager. The following function within mongosh was used to add these fields, db.players.updateMany({}, { "$set": { "manager": null, "status": true } }). Below is the screenshot showing the players after the initial insert.
 
-![Alt Text]()
+![Alt Text](https://github.com/dh2225/CS312-Fantasy-Draft/blob/main/images/populate-mongodb.png)
 
-#### Deliverable #4 - Create Endpoints & Service Function Code:
+### Deliverable #4 - Create Endpoints & Service Function Code:
+* **Created connect.js:** responsible for setting up a connection to the MongoDB database using mongoose. Database class was created allowing an instance of the Database class to be exported and a connection to the MongoDB server to be established upon import. Below is a small snippet showing the database class. 
 
+![Alt Text](https://github.com/dh2225/CS312-Fantasy-Draft/blob/main/images/connect.png)
 
-![Alt Text]()
+* **Creation of PlayerModel.js:** The PlayerModel.js code is responsible for establishing a schema for the collection of players. The field data types are defined and the model is exported for use in the DraftToolService.js code. The below screenshot shows the schema used. 
 
-#### Deliverable #5 - Test Endpoints in Postman:
+![Alt Text](https://github.com/dh2225/CS312-Fantasy-Draft/blob/main/images/player-model.png)
 
+* **Creation of DraftToolService.js:** The DraftToolService.js code contains the code for the 5 service functions that are required for the api.
+  
+**1. addPlayer**
 
-![Alt Text]()
+![Alt Text](https://github.com/dh2225/CS312-Fantasy-Draft/blob/main/images/addPlayer.png)
 
-### Phase-2 Deliverables
+**2. fetchPlayers**
+   
+![Alt Text](https://github.com/dh2225/CS312-Fantasy-Draft/blob/main/images/fetchPlayers.png)
+
+**3. findPlayerById:** Accepts an id as a parameter. Created to be used as a helper function in the api. Finds a player by id.
+
+**4. updatePlayer:** Accepts id and manager as parameters. Finds the appropriate player by the id parameter. If found, sets manager field and status field. Uses .save command and returns the player. 
+   
+![Alt Text](https://github.com/dh2225/CS312-Fantasy-Draft/blob/main/images/updatePlayer.png)
+
+**5. deletePlayer:** Accepts id as a parameter. Uses findByIdAndDelete command, passing the id. Returns the deleted player.
+
+### Deliverable #5 - Test Endpoints in Postman:
+Within Postman, the four endpoints were tested to assure that the right actions were being performed within our Fantasy_Draft database.
+
+**Testing add player endpoint:** In order to test the api functionality, the addPlayer endpoint will pass a player document in JSON format. The below screenshot shows an example of a player that would be passed from the front-end to the API. 
+
+![Alt Text](https://github.com/dh2225/CS312-Fantasy-Draft/blob/main/images/test-add.png)
+
+When the body containing this player data was sent, the below screenshot shows the response. 
+
+![Alt Text](https://github.com/dh2225/CS312-Fantasy-Draft/blob/main/images/test-add1.png)
+
+This shows that the api is able to successfully use the service functions and add players to the Fantasy_Draft database. Also, the manager and status fields are being added by the DraftToolService.js code. There are two errors that may be thrown if there is an issue with adding the player document. One is the status code 500, if there is an issue adding the player to the DB. The other will return a 400 status code if the data lacks the required fields. Both errors have been tested. See below for the status code 400 response.
+
+![Alt Text](https://github.com/dh2225/CS312-Fantasy-Draft/blob/main/images/test-add2.png)
+
+**Testing Fetch Players Endpoint:** The fetch players endpoint is responsible for providing a list of players from the database that are not currently drafted by a manager/team. That is, the status of the player is true. When testing this functionality, the response should deliver a message stating that the list was fetched successfully as well as all of the players with the status of true. As seen in the below screenshot, the endpoint is capable of providing a list of players containing the status true. 
+
+![Alt Text](https://github.com/dh2225/CS312-Fantasy-Draft/blob/main/images/test-fetch.png)
+
+If there is an error grabbing this list, the endpoint is capable of responding with the correct error message and status code. 
+
+**Testing Update Player Endpoint:** The update player endpoint is responsible for updating a particular player’s manager and status by the provided id. In the draft, this will enable the selected players to be removed from the available player list. If the update is successful, a success message will be displayed and the player data will be returned as well. See the below response showing the status changed and manager updated accordingly. 
+
+![Alt Text](https://github.com/dh2225/CS312-Fantasy-Draft/blob/main/images/test-update.png)
+
+There are two errors that may be thrown, a 404 error stating that the player ID does not exist and the 500 error stating that there was an error updating the player in the database. The below screenshot shows the response from an incorrect id. 
+
+![Alt Text](https://github.com/dh2225/CS312-Fantasy-Draft/blob/main/images/test-update1.png)
+
+**Testing Delete Player Endpoint:** The delete player endpoint is an admin only endpoint. The front-end will not be able to use this endpoint since it is a hard delete. The endpoint will accept an id of a player and either respond successfully or throw one of two errors. The first error will throw a 404 status code stating that the id doesn’t exist. The other will throw a 500 status code stating that there was an error deleting the player from the database. The functionality of the delete player endpoint is working correctly. Players may be deleted and each error may successfully be thrown. The screenshot below shows that the id check of the player is working correctly. 
+
+![Alt Text](https://github.com/dh2225/CS312-Fantasy-Draft/blob/main/images/test-delete.png)
+
+### Summary of Phase-1 Deliverables
+#### Implemented Features:
+In this deliverable phase, the front-end remains untouched. A design has been agreed upon, but nothing has been implemented. The back-end however has been updated. This included the creation and population of the database as well as the creation of the projects endpoints/service function code.
+
+#### Technologies Used:
+Node.js, express.js, MongoDB, Postman
+
+#### Instructions for Running Project Locally:
+1. Clone repository
+2. Install required dependencies
+3. Install MongoDB and run it on your local machine
+4. Install Postman
+5. Start server by running npm start
+6. Test API endpoints using Postman
+
+## Phase-2 Deliverables
 ![Alt Text](https://github.com/dh2225/CS312-Fantasy-Draft/blob/main/images/phase2_deliverables.png)
 
 Please read our full [Project Proposal](https://github.com/dh2225/CS312-Fantasy-Draft/blob/main/project-proposal.md) document for more details on the specifics of our project. 
