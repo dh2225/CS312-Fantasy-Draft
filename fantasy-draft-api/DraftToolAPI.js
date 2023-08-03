@@ -1,10 +1,12 @@
 import express from "express"; 
+import cors from "cors";
 import "./connect.js";
-import { addPlayer, fetchPlayers, findPlayerById, updatePlayer, deletePlayer } from "./services/DraftToolService.js";
+import { addPlayer, fetchPlayers, fetchTeam, findPlayerById, updatePlayer, deletePlayer } from "./services/DraftToolService.js";
 
 const app = express(); 
 
 app.use(express.json());
+app.use(cors());
 
 //C - addPlayerEndpoint
 //API method: POST
@@ -56,7 +58,7 @@ async function fetchPlayersEndpoint(request,response){
         const players = await fetchPlayers();
         response
             .status(200)
-            .send({message: "Player list fetched successfully", players})
+            .json(players); //returns an array instead of a nested object
     }
 
     catch(error){
@@ -67,6 +69,32 @@ async function fetchPlayersEndpoint(request,response){
 };
 
 app.get('/fetchPlayers', fetchPlayersEndpoint);
+
+//R - fetchTeamEndpoint
+//API method: GET
+//try
+    //status code: 200
+    //data: [{},{},.....]
+//catch
+    //status code: 500
+    //error: "Error getting team from DB"
+    async function fetchTeamEndpoint(request,response){
+        try{
+            const { manager } = request.body;
+            const team = await fetchTeam(manager);
+            response
+                .status(200)
+                .json(team); //returns an array instead of a nested object
+        }
+    
+        catch(error){
+            response    
+                .status(500)
+                .send({error: "Error getting players from DB"})
+        }
+    };
+    
+    app.get('/fetchTeam', fetchTeamEndpoint);
 
 //U - updatePlayerEndpoint
 //API method: PUT
