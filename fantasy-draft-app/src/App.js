@@ -1,5 +1,6 @@
 import './App.css';
 import DraftBoard from './components/DraftBoard';
+import AvailablePlayerList from './components/AvailablePlayerList';
 
 function App() {
   return (
@@ -11,7 +12,7 @@ function App() {
 
       <div className="container">
         <div className="availablePlayerList">
-        <h1>Available Player List Placeholder</h1>
+          <AvailablePlayerList />
         </div>
 
         <div className="teamManagement">

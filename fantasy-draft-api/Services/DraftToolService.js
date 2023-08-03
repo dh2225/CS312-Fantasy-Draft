@@ -18,6 +18,7 @@ const addPlayer = async (adp, name, position, team, bye) => {
 
 const fetchPlayers = async () => {
     const availablePlayers = await PlayerModel.find({status: true});
+    console.log("Players:", availablePlayers)
     return availablePlayers;
 };
 
