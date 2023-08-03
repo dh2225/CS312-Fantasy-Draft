@@ -28,29 +28,8 @@ class AvailablePlayerList extends Component {
 
   render() {
     return (
-      <div className="grid-container">
-        <div className="grid-header">
-          <div className="grid-column">ADP</div>
-          <div className="grid-column">Player Name</div>
-          <div className="grid-column">Position</div>
-          <div className="grid-column">Team</div>
-          <div className="grid-column">Bye Week</div>
-          <div className="grid-column"></div>
-        </div>
-        <div className="grid-body">
-          {this.state.players.map((player) => (
-            <div className="grid-row">
-              <div className="grid-column">{player.adp}</div>
-              <div className="grid-column">{player.name}</div>
-              <div className="grid-column">{player.position}</div>
-              <div className="grid-column">{player.team}</div>
-              <div className="grid-column">{player.bye}</div>
-              <div className="grid-column">
-                <button>Add Player</button>
-              </div>
-            </div>
-          ))}
-        </div>
+      <div>
+        
       </div>
     );
   }
