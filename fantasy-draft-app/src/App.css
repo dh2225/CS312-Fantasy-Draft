@@ -1,0 +1,108 @@
+.App {
+  text-align: center;
+}
+/* ================ All draftBoard Styling goes here ================ */
+.draftBoard {
+  height: 50%;
+  width: 100%;
+  border: 5px solid #FF0000;
+  padding: 10px;
+  /* Right border was requiring a horizontal scroll bar to view, 
+  this keeps border within visible view */
+  box-sizing: border-box; 
+}
+
+.startDraftButton {
+  background-color: rgba(25, 25, 110, 0.973);
+  color: rgb(238, 222, 222);
+  border-radius: 20px; /* Adjust the border radius to control the roundness */
+  padding: 10px 20px;
+  font-size: 1vw;
+  cursor: pointer;
+}
+
+.countdownDiv {
+  font-size: 2vw;
+}
+
+.teamsGrid {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-gap: 20px;
+  margin-top: 20px;
+}
+
+.team {
+  border: 1px solid black;
+  padding: 10px;
+}
+
+.playerList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.playerList li {
+  margin-bottom: 5px;
+}
+
+/* =================================================================== */
+
+
+
+
+/* ================ All Container Styling goes here ================ */
+.container {
+  display: flex; /* using Flexbox for our dual panels below the Draft Board */
+  height: 100%;
+}
+/* =================================================================== */
+
+
+
+
+/* ================ All AvailablePlayerList Styling goes here ================ */
+.availablePlayerList {
+  flex: 1;
+  height: 100%;
+  border: 5px solid #0bdfee;
+  box-sizing: border-box; 
+}
+
+.grid-header,
+.grid-row {
+  display: flex;
+}
+
+.grid-column {
+  flex: 1;
+  border-right: 1px solid;
+}
+
+.grid-column:last-child {
+  border-right: none;
+}
+
+.grid-header {
+  font-weight: bold;
+  overflow-y: auto;
+}
+
+/*.grid-body {
+
+}  going to need to setup a scroll bar here*/
+/* =================================================================== */
+
+
+
+
+
+/* ================ All teamManagement Styling goes here ================ */
+.teamManagement {
+  flex: 1;
+  height: 100%;
+  border: 5px solid #7c02ee;
+  box-sizing: border-box; 
+}
+/* =================================================================== */
