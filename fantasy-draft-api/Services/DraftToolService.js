@@ -21,6 +21,11 @@ const fetchPlayers = async () => {
     return availablePlayers;
 };
 
+const fetchTeam = async (manager) => {
+    const team = await PlayerModel.find({manager: manager});
+    return team;
+};
+
 const findPlayerById = async (id) => {
     const player = await PlayerModel.findById(id);
     return player;
@@ -41,4 +46,4 @@ const deletePlayer = async (id) => {
 
 
 
-export { addPlayer, fetchPlayers, findPlayerById, updatePlayer, deletePlayer };
+export { addPlayer, fetchPlayers, fetchTeam, findPlayerById, updatePlayer, deletePlayer };
