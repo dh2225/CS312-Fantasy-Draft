@@ -5,8 +5,8 @@
 .draftBoard {
   height: 50%;
   width: 100%;
-  border: 5px solid #FF0000;
-  padding: 10px;
+  border: 3px solid #A5ACAF;
+  padding: 3px;
   /* Right border was requiring a horizontal scroll bar to view, 
   this keeps border within visible view */
   box-sizing: border-box; 
@@ -28,13 +28,12 @@
 .teamsGrid {
   display: grid;
   grid-template-columns: repeat(10, 1fr);
-  grid-gap: 20px;
-  margin-top: 20px;
+  grid-gap: 10px;
+  margin-top: 3px;
 }
 
 .team {
   border: 1px solid black;
-  padding: 10px;
 }
 
 .playerList {
@@ -44,7 +43,7 @@
 }
 
 .playerList li {
-  margin-bottom: 5px;
+  margin-bottom: 2px;
 }
 
 /* =================================================================== */
@@ -66,32 +65,17 @@
 .availablePlayerList {
   flex: 1;
   height: 100%;
-  border: 5px solid #0bdfee;
+  border: 3px solid #FFB612;
   box-sizing: border-box; 
 }
 
-.grid-header,
-.grid-row {
-  display: flex;
+.search-bar {
+  background-color: #101820;
 }
 
-.grid-column {
-  flex: 1;
-  border-right: 1px solid;
+input {
+  width: 33%;
 }
-
-.grid-column:last-child {
-  border-right: none;
-}
-
-.grid-header {
-  font-weight: bold;
-  overflow-y: auto;
-}
-
-/*.grid-body {
-
-}  going to need to setup a scroll bar here*/
 /* =================================================================== */
 
 
@@ -102,7 +86,7 @@
 .teamManagement {
   flex: 1;
   height: 100%;
-  border: 5px solid #7c02ee;
+  border: 3px solid #101820;
   box-sizing: border-box; 
 }
 /* =================================================================== */
