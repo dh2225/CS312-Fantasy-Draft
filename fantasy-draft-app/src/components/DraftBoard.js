@@ -111,7 +111,7 @@ class DraftBoard extends Component {
             <div className="teamsGrid">
                 {teams.map((team) => (
                     <div key={team.id} className="team">
-                        <h2 className="teamName" onClick={this.handleTeamNameClick}>{team.name}</h2>
+                        <h4 className="teamName" onClick={this.handleTeamNameClick}>{team.name}</h4>
                         <ul className="playerList">
                             <li>QB: {team.players.QB || 'Placeholder'}</li>
                             <li>RB1: {team.players.RB1 || 'Placeholder'}</li>
