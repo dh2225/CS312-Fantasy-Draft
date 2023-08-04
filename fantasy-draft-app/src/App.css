@@ -69,28 +69,13 @@
   box-sizing: border-box; 
 }
 
-.grid-header,
-.grid-row {
-  display: flex;
+.search-bar {
+  background-color: #101820;
 }
 
-.grid-column {
-  flex: 1;
-  border-right: 1px solid;
+input {
+  width: 33%;
 }
-
-.grid-column:last-child {
-  border-right: none;
-}
-
-.grid-header {
-  font-weight: bold;
-  overflow-y: auto;
-}
-
-/*.grid-body {
-
-}  going to need to setup a scroll bar here*/
 /* =================================================================== */
 
 

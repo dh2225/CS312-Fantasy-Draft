@@ -25,6 +25,8 @@ class DraftBoard extends Component {
             },
           })),
          pickingId: 0,
+         isRoundEven: false,
+         roundNum: 1,
       }
     }
 
@@ -49,20 +51,51 @@ class DraftBoard extends Component {
           }))
     }
 
+    // function responsible for keeping track of picking ID and maintaining
+    // the snake draft logic
     updatePickingId = () => {
-        const { pickingId } = this.state
-
+      const { pickingId, isRoundEven, roundNum } = this.state;
+    
+      if (roundNum === 1) {
         if (pickingId === 10) {
-            this.setState((prevState) => ({
-                pickingId: 1,
-              }))
-        } else {
-            this.setState((prevState) => ({
-                pickingId: prevState.pickingId + 1,
-              }))
+          this.setState((prevState) => ({
+            isRoundEven: true,
+            roundNum: prevState.roundNum + 1,
+          }));
+          return;
         }
-    }
-
+    
+        this.setState((prevState) => ({
+          pickingId: prevState.pickingId + 1,
+        }));
+      } else {
+        // For subsequent rounds, use the snake draft logic
+        if (isRoundEven) {
+          if (pickingId === 1) {
+            this.setState((prevState) => ({
+              isRoundEven: false,
+              roundNum: prevState.roundNum + 1,
+            }));
+          } else {
+            this.setState((prevState) => ({
+              pickingId: prevState.pickingId - 1,
+            }));
+          }
+        } else {
+          if (pickingId === 10) {
+            this.setState((prevState) => ({
+              isRoundEven: true,
+              roundNum: prevState.roundNum + 1,
+            }));
+          } else {
+            this.setState((prevState) => ({
+              pickingId: prevState.pickingId + 1,
+            }));
+          }
+        }
+      }
+    };
+    
     // function responsible for checking to see if all teams are filled,
     // if they are, we know to stop the timer and end the draft
     checkIfAllTeamsFilled = () => {
@@ -78,7 +111,7 @@ class DraftBoard extends Component {
         if (draftStarted && countdown === 0) {
             
             this.updatePickingId()
-            this.setState({ countdown: 60 });
+            this.setState({ countdown: 3 });
             
             if (this.checkIfAllTeamsFilled()) {
                 // Stop the countdown and show a message

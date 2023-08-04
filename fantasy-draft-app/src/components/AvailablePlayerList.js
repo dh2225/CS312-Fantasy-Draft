@@ -87,7 +87,7 @@ const AvailablePlayerList = () => {
           type="text"
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
-          placeholder="Search by name or team..."
+          placeholder="Search by name, position, team..."
         />
       </div>
       <DataTable
