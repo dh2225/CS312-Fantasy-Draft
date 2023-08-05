@@ -31,13 +31,13 @@ async function addPlayerEndpoint(request,response){
         }
 
         let player = await addPlayer(adp, name, position, team, bye);
-        response    
+        return response    
             .status(201)
             .send({message: "Player added successfully", player})
     }
 
     catch(error){
-        response
+        return response
             .status(500)
             .send({error: "Error adding player to DB"})
     }
@@ -56,13 +56,13 @@ app.post('/addPlayer', addPlayerEndpoint);
 async function fetchPlayersEndpoint(request,response){
     try{
         const players = await fetchPlayers();
-        response
+        return response
             .status(200)
             .json(players); //returns an array instead of a nested object
     }
 
     catch(error){
-        response    
+        return response    
             .status(500)
             .send({error: "Error getting players from DB"})
     }
@@ -82,13 +82,13 @@ app.get('/fetchPlayers', fetchPlayersEndpoint);
         try{
             const { manager } = request.body;
             const team = await fetchTeam(manager);
-            response
+            return response
                 .status(200)
                 .json(team); //returns an array instead of a nested object
         }
     
         catch(error){
-            response    
+            return response    
                 .status(500)
                 .send({error: "Error getting players from DB"})
         }
@@ -109,19 +109,19 @@ async function updatePlayerEndpoint(request,response){
         const { id, manager } = request.body;
         const exist = await findPlayerById(id);
         if (!exist) {
-            response
+           return response
                 .status(404)
                 .send({error: "Player ID does not exist"})
         }
     
         const player = await updatePlayer(id, manager);
-        response
+        return response
             .status(200)
             .send({message: "Player updated successfully", player})
     }
         
     catch(error){
-        response
+        return response
             .status(500)
             .send({error: "Error updating player from DB"})
     }
@@ -144,18 +144,18 @@ async function deletePlayerEndpoint(request, response){
         const { id } = request.body;
         const exist = await findPlayerById(id);
         if (!exist) {
-            response
+            return response
                 .status(404)
                 .send({error: "Player ID does not exist"})
         }
         const player = await deletePlayer(id);
-        response
+        return response
             .status(200)
             .send({message: "Player successfully deleted", player});
     }
 
     catch (error){
-        response
+        return response
             .status(500)
             .send({error: "Error deleting player from DB"});
     }
