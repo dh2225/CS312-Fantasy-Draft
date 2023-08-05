@@ -10,7 +10,7 @@ const AvailablePlayerList = () => {
       .then((res) => res.json())
       .then((data) => {
         const playersData = data.map((player) => ({
-          _id: player.id,
+          _id: player._id,
           adp: player.adp,
           name: player.name,
           position: player.position,
@@ -24,8 +24,37 @@ const AvailablePlayerList = () => {
   }, []);
 
   const handleAddPlayerToTeam = (playerId) => {
-    // Implement your logic to add the player to a team here
-    console.log(`Adding player with ID ${playerId} to a team.`);
+    const apiUrl = 'http://localhost:1234/updatePlayer'; // Replace with your API endpoint URL
+
+    const requestData = {
+      id: playerId, // playerId as id in the body
+      manager: "Team 1", // Setting the manager to "Team 1"
+    };
+
+    fetch(apiUrl, {
+      method: 'PUT', // Using PUT method to update the player
+      headers: {'Content-Type': 'application/json',},
+      body: JSON.stringify(requestData), // Send the requestData as JSON in the request body
+    })
+    .then(res=>res.json())
+    .then(json => {
+      console.log(json);
+      fetch('http://localhost:1234/fetchPlayers/')
+      .then((res) => res.json())
+      .then((data) => {
+        const playersData = data.map((player) => ({
+          _id: player._id,
+          adp: player.adp,
+          name: player.name,
+          position: player.position,
+          team: player.team,
+          bye: player.bye,
+          manager: player.manager,
+          status: player.status,
+        }));
+        setPlayers(playersData);
+      });
+    })
   };
 
   const columns = [
