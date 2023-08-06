@@ -1,24 +1,47 @@
 .App {
   text-align: center;
+  background-color: rgb(160, 160, 162);
 }
 /* ================ All draftBoard Styling goes here ================ */
 .draftBoard {
   height: 50%;
   width: 100%;
-  border: 3px solid #A5ACAF;
   padding: 3px;
   /* Right border was requiring a horizontal scroll bar to view, 
   this keeps border within visible view */
   box-sizing: border-box; 
 }
 
+.buttonWrapper {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+
+}
+
 .startDraftButton {
   background-color: rgba(25, 25, 110, 0.973);
   color: rgb(238, 222, 222);
+  border: 2px solid rgb(238, 222, 222);
   border-radius: 20px; /* Adjust the border radius to control the roundness */
   padding: 10px 20px;
   font-size: 1vw;
   cursor: pointer;
+  margin-bottom: 0.5vh;
+}
+
+.resetDraftButton {
+  background-color: red;
+  color: black;
+  border: 3px solid black;
+  border-radius: 20px; /* Adjust the border radius to control the roundness */
+  padding: 10px 20px;
+  font-size: 1vw;
+  cursor: pointer;
+  position: absolute;
+  top: 0; /* Align to the top */
+  right: 0; /* Align to the right */
+  margin: 5px; /* Add some margin for better spacing */
 }
 
 .countdownDiv {
@@ -69,7 +92,7 @@ h4 {
 .availablePlayerList {
   flex: 1;
   height: 100%;
-  border: 3px solid #FFB612;
+  border: 2px solid #FFB612;
   box-sizing: border-box; 
 }
 
@@ -90,7 +113,6 @@ input {
 .teamManagement {
   flex: 1;
   height: 100%;
-  border: 3px solid #101820;
   box-sizing: border-box; 
 }
 

@@ -45,6 +45,11 @@ const deletePlayer = async (id) => {
     return player;
 };
 
+const resetPlayers = async () => {
+    const freshPlayerList = await PlayerModel.updateMany({}, {$set: {manager: null, status: true}})
+    return freshPlayerList;
+}
 
 
-export { addPlayer, fetchPlayers, fetchTeam, findPlayerById, updatePlayer, deletePlayer };
+
+export { addPlayer, fetchPlayers, fetchTeam, findPlayerById, updatePlayer, deletePlayer, resetPlayers };
