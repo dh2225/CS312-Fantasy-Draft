@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import DataTable from 'react-data-table-component'
 
 const AvailablePlayerList = ({ pickingId, teams, updatePickingId, resetCountdown }) => {
+  // hooks
   const [players, setPlayers] = useState([])
   const [searchText, setSearchText] = useState('')
 
@@ -177,7 +178,8 @@ const AvailablePlayerList = ({ pickingId, teams, updatePickingId, resetCountdown
       }
     }
   }
-
+  
+  // define columns to be used by react-data-table-component
   const columns = [
     {
       name: 'ADP',
@@ -231,7 +233,7 @@ const AvailablePlayerList = ({ pickingId, teams, updatePickingId, resetCountdown
 
 
   return (
-    <div className="grid-container">
+    <div className="avail-player-grid-container">
       <div className="search-bar">
         <input
           type="text"
