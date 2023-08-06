@@ -81,7 +81,7 @@ const AvailablePlayerList = ({ pickingId, teams, updatePickingId, resetCountdown
                 }  
               } 
             }
-        } else if (playerPosition === "K") {
+        } else if (playerPosition === "PK") {
           // Check if K slot is full, if so, check flex spots
           if (team.players.K === null) {
             team.players.K = playerName
