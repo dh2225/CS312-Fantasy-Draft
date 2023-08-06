@@ -1,7 +1,9 @@
 import './App.css';
-import DraftBoard from './components/DraftBoard';
-import AvailablePlayerList from './components/AvailablePlayerList';
+import DraftBoard from './components/DraftBoard'
+import AvailablePlayerList from './components/AvailablePlayerList'
+import TeamManagement from './components/TeamManagement'
 import React, { Component } from 'react'
+
 
 class App extends Component {
 
@@ -40,7 +42,7 @@ class App extends Component {
   // function responsible for keeping track of picking ID and maintaining
   // the snake draft logic
   updatePickingId = () => {
-    let { pickingId, isRoundEven, roundNum } = this.state;
+    let { pickingId, isRoundEven, roundNum } = this.state
   
     // first round/last round will behave differently than the rest
     if (roundNum === 1) {
@@ -49,13 +51,13 @@ class App extends Component {
         this.setState((prevState) => ({
           isRoundEven: true,
           roundNum: prevState.roundNum + 1,
-        }));
-        return;
+        }))
+        return
       }
   
       this.setState((prevState) => ({
         pickingId: prevState.pickingId + 1,
-      }));
+      }))
     } else {
       // For subsequent rounds, use the snake draft logic
       if (isRoundEven) {
@@ -63,22 +65,22 @@ class App extends Component {
           this.setState((prevState) => ({
             isRoundEven: false,
             roundNum: prevState.roundNum + 1,
-          }));
+          }))
         } else {
           this.setState((prevState) => ({
             pickingId: prevState.pickingId - 1,
-          }));
+          }))
         }
       } else {
         if (pickingId === 10) {
           this.setState((prevState) => ({
             isRoundEven: true,
             roundNum: prevState.roundNum + 1,
-          }));
+          }))
         } else {
           this.setState((prevState) => ({
             pickingId: prevState.pickingId + 1,
-          }));
+          }))
         }
       }
     }
@@ -110,7 +112,7 @@ class App extends Component {
           </div>
   
           <div className="teamManagement">
-          <h1>Team Management Placeholder</h1>
+          <TeamManagement teams={teams}/>
           </div>
   
         </div>
