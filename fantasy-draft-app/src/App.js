@@ -1,27 +1,122 @@
 import './App.css';
 import DraftBoard from './components/DraftBoard';
 import AvailablePlayerList from './components/AvailablePlayerList';
+import React, { Component } from 'react'
 
-function App() {
-  return (
-    <div className="App">
-      
-      <div className="draftBoard">
-        <DraftBoard />
-      </div>
+class App extends Component {
 
-      <div className="container">
-        <div className="availablePlayerList">
-          <AvailablePlayerList />
+  constructor(props) {
+    super(props)
+  
+    this.state = {
+      teams: Array.from({ length: 10 }, (_, i) => ({
+        id: i + 1,
+        name: `Team ${i + 1}`,
+        players: {
+          QB: null,
+          RB1: null,
+          RB2: null,
+          WR1: null,
+          WR2: null,
+          TE: null,
+          FLEX1: null,
+          FLEX2: null,
+          DST: null,
+          K: null,
+        },
+      })),
+      pickingId: 0,
+      isRoundEven: false,
+      roundNum: 1,
+      countdown: 0,
+    }
+  }
+
+  // Decided to move pickingId and it's accompanying functions/logic outside of 
+  // DraftBoard.js. This is due to the fact that pickingId is relevant throughout
+  // the entire draft process, not just the Draft Board. This will allow passing of
+  // props and functions.
+  
+  // function responsible for keeping track of picking ID and maintaining
+  // the snake draft logic
+  updatePickingId = () => {
+    let { pickingId, isRoundEven, roundNum } = this.state;
+  
+    // first round/last round will behave differently than the rest
+    if (roundNum === 1) {
+      // bottom of the draft
+      if (pickingId === 10) {
+        this.setState((prevState) => ({
+          isRoundEven: true,
+          roundNum: prevState.roundNum + 1,
+        }));
+        return;
+      }
+  
+      this.setState((prevState) => ({
+        pickingId: prevState.pickingId + 1,
+      }));
+    } else {
+      // For subsequent rounds, use the snake draft logic
+      if (isRoundEven) {
+        if (pickingId === 1) {
+          this.setState((prevState) => ({
+            isRoundEven: false,
+            roundNum: prevState.roundNum + 1,
+          }));
+        } else {
+          this.setState((prevState) => ({
+            pickingId: prevState.pickingId - 1,
+          }));
+        }
+      } else {
+        if (pickingId === 10) {
+          this.setState((prevState) => ({
+            isRoundEven: true,
+            roundNum: prevState.roundNum + 1,
+          }));
+        } else {
+          this.setState((prevState) => ({
+            pickingId: prevState.pickingId + 1,
+          }));
+        }
+      }
+    }
+  };
+
+  updateCountdown = () => {
+    this.setState((prevState) => ({
+        countdown: prevState.countdown - 1,
+      }))
+  }
+
+  resetCountdown = (num) => {
+      this.setState({ countdown: num })
+  }
+  
+  render() {
+    const { pickingId, teams, isRoundEven, roundNum, countdown } = this.state
+    return (
+      <div className="App">
+        
+        <div className="draftBoard">
+          <DraftBoard pickingId={pickingId} teams={teams} isRoundEven={isRoundEven} roundNum={roundNum} countdown={countdown}
+          updatePickingId={this.updatePickingId} updateCountdown={this.updateCountdown} resetCountdown={this.resetCountdown}/>
         </div>
-
-        <div className="teamManagement">
-        <h1>Team Management Placeholder</h1>
+  
+        <div className="container">
+          <div className="availablePlayerList">
+            <AvailablePlayerList pickingId={pickingId} teams={teams} updatePickingId={this.updatePickingId} resetCountdown={this.resetCountdown}/>
+          </div>
+  
+          <div className="teamManagement">
+          <h1>Team Management Placeholder</h1>
+          </div>
+  
         </div>
-
-      </div>
-    </div >
-  );
+      </div >
+    )
+  }
 }
 
-export default App;
+export default App

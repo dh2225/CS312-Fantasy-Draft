@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import DataTable from 'react-data-table-component';
+import DraftBoard from './DraftBoard';
 
-const AvailablePlayerList = () => {
+const AvailablePlayerList = ({ pickingId, teams, updatePickingId, resetCountdown }) => {
   const [players, setPlayers] = useState([]);
   const [searchText, setSearchText] = useState('');
 
@@ -23,38 +24,159 @@ const AvailablePlayerList = () => {
       });
   }, []);
 
-  const handleAddPlayerToTeam = (playerId) => {
-    const apiUrl = 'http://localhost:1234/updatePlayer'; // Replace with your API endpoint URL
+  const handleAddPlayerToTeam = (playerId, playerPosition, playerName) => {
+  
+    // check to make sure the current picking team has slots available for that position
+    for (let i=0; i < teams.length; i++) {
+      const team = teams[i]
 
-    const requestData = {
-      id: playerId, // playerId as id in the body
-      manager: "Team 1", // Setting the manager to "Team 1"
-    };
+      if (team.id === pickingId) {
+        // check if the player position being added is full or not
+        
+        // check QB first
+        if (playerPosition === "QB") {
+          if (team.players.QB === null) {
+            team.players.QB = playerName
+          } else {
+            if (team.players.FLEX1 === null) {
+              team.players.FLEX1 = playerName
+            } else {
+              if (team.players.FLEX2 === null) {
+                team.players.FLEX2 = playerName
+              } else {
+                alert("The position you are trying to fill is full.")
+                return
+              }
+            }
+          }
+        } else if (playerPosition === "TE") {
+          // Check if TE slot is full, if so, check flex spots
+          if (team.players.TE === null) {
+            team.players.TE = playerName
+          } else {
+            if (team.players.FLEX1 === null) {
+              team.players.FLEX1 = playerName
+            } else {
+              if (team.players.FLEX2 === null) {
+                team.players.FLEX2 = playerName
+              } else {
+                alert("The position you are trying to fill is full.")
+                return
+                }  
+              } 
+            }
+        } else if (playerPosition === "DST") {
+          // Check if DST slot is full, if so, check flex spots
+          if (team.players.DST === null) {
+            team.players.DST = playerName
+          } else {
+            if (team.players.FLEX1 === null) {
+              team.players.FLEX1 = playerName
+            } else {
+              if (team.players.FLEX2 === null) {
+                team.players.FLEX2 = playerName
+              } else {
+                alert("The position you are trying to fill is full.")
+                return
+                }  
+              } 
+            }
+        } else if (playerPosition === "K") {
+          // Check if K slot is full, if so, check flex spots
+          if (team.players.K === null) {
+            team.players.K = playerName
+          } else {
+            if (team.players.FLEX1 === null) {
+              team.players.FLEX1 = playerName
+            } else {
+              if (team.players.FLEX2 === null) {
+                team.players.FLEX2 = playerName
+              } else {
+                alert("The position you are trying to fill is full.")
+                return
+                }  
+              } 
+            }
+        } else if (playerPosition === "RB") {
+          // Check if RB slots are full, if so, check flex spots
+          if (team.players.RB1 === null) {
+            team.players.RB1 = playerName
+          } else if (team.players.RB1 != null) {
+            if (team.players.RB2 === null) {
+              team.players.RB2 = playerName
+            } else {
+              // check flex spots
+              if (team.players.FLEX1 === null) {
+                team.players.FLEX1 = playerName
+              } else {
+                if (team.players.FLEX2 === null) {
+                  team.players.FLEX2 = playerName
+                } else {
+                  alert("The position you are trying to fill is full.")
+                  return
+                  }
+              }
+            }
+          } 
+        } else if (playerPosition === "WR") {
+          // Check if WR slots are full, if so, check flex spots
+          if (team.players.WR1 === null) {
+            team.players.WR1 = playerName
+          } else if (team.players.WR1 != null) {
+            if (team.players.WR2 === null) {
+              team.players.WR2 = playerName
+            } else {
+              // check flex spots
+              if (team.players.FLEX1 === null) {
+                team.players.FLEX1 = playerName
+              } else {
+                if (team.players.FLEX2 === null) {
+                  team.players.FLEX2 = playerName
+                } else {
+                  alert("The position you are trying to fill is full.")
+                  return
+                  }
+              }
+            }
+          }
+        }
 
-    fetch(apiUrl, {
-      method: 'PUT', // Using PUT method to update the player
-      headers: {'Content-Type': 'application/json',},
-      body: JSON.stringify(requestData), // Send the requestData as JSON in the request body
-    })
-    .then(res=>res.json())
-    .then(json => {
-      console.log(json);
-      fetch('http://localhost:1234/fetchPlayers/')
-      .then((res) => res.json())
-      .then((data) => {
-        const playersData = data.map((player) => ({
-          _id: player._id,
-          adp: player.adp,
-          name: player.name,
-          position: player.position,
-          team: player.team,
-          bye: player.bye,
-          manager: player.manager,
-          status: player.status,
-        }));
-        setPlayers(playersData);
-      });
-    })
+        const apiUrl = 'http://localhost:1234/updatePlayer'; // Replace with your API endpoint URL
+
+        const requestData = {
+          id: playerId, // playerId as id in the body
+          manager: pickingId, // Setting the manager to pickingId prop passed from App.js
+        };
+
+        fetch(apiUrl, {
+          method: 'PUT', // Using PUT method to update the player
+          headers: {'Content-Type': 'application/json',},
+          body: JSON.stringify(requestData), // Send the requestData as JSON in the request body
+        })
+        .then(res=>res.json())
+        .then(json => {
+          console.log(json);
+          fetch('http://localhost:1234/fetchPlayers/')
+          .then((res) => res.json())
+          .then((data) => {
+            const playersData = data.map((player) => ({
+              _id: player._id,
+              adp: player.adp,
+              name: player.name,
+              position: player.position,
+              team: player.team,
+              bye: player.bye,
+              manager: player.manager,
+              status: player.status,
+            }));
+            setPlayers(playersData);
+          });
+        })
+
+        updatePickingId()
+        resetCountdown(20)
+      }
+    }
   };
 
   const columns = [
@@ -86,7 +208,7 @@ const AvailablePlayerList = () => {
     {
       name: 'Add to Team',
       cell: (row) => (
-        <button onClick={() => handleAddPlayerToTeam(row._id)}>
+        <button onClick={() => handleAddPlayerToTeam(row._id, row.position, row.name)}>
           Add Player
         </button>
       ),
