@@ -46,7 +46,7 @@ class App extends Component {
   
     // first round/last round will behave differently than the rest
     if (roundNum === 1) {
-      // bottom of the draft
+      // bottom of the draft order
       if (pickingId === 10) {
         this.setState((prevState) => ({
           isRoundEven: true,
@@ -54,12 +54,14 @@ class App extends Component {
         }))
         return
       }
-  
+      // not round 10 but still in round 1, increment until round 10
+      // OR this is allows the second pick for Team 10 to occurr
       this.setState((prevState) => ({
         pickingId: prevState.pickingId + 1,
       }))
     } else {
       // For subsequent rounds, use the snake draft logic
+      // During even rounds, we are descending through the draft order
       if (isRoundEven) {
         if (pickingId === 1) {
           this.setState((prevState) => ({
@@ -72,6 +74,9 @@ class App extends Component {
           }))
         }
       } else {
+        // during odd rounds, we are ascending through the draft order
+        // making sure to give players 1 and 10 2 picks in a row
+        // (as long as it is not the first or last round in the draft)
         if (pickingId === 10) {
           this.setState((prevState) => ({
             isRoundEven: true,
@@ -86,6 +91,8 @@ class App extends Component {
     }
   };
 
+  // this function uses setState and previous state to accurately
+  // decrement the countdown at the set interval
   updateCountdown = () => {
     this.setState((prevState) => ({
         countdown: prevState.countdown - 1,

@@ -1,7 +1,7 @@
 import express from "express"; 
 import cors from "cors";
 import "./connect.js";
-import { addPlayer, fetchPlayers, fetchTeam, findPlayerById, updatePlayer, deletePlayer } from "./services/DraftToolService.js";
+import { addPlayer, fetchPlayers, fetchTeam, findPlayerById, updatePlayer, deletePlayer, resetPlayers } from "./Services/DraftToolService.js";
 
 const app = express(); 
 
@@ -162,6 +162,31 @@ async function deletePlayerEndpoint(request, response){
 };
 
 app.delete("/deletePlayer", deletePlayerEndpoint);
+
+// resetPlayersEndpoint
+// API method: PUT
+// try 
+    // status code: 200
+    // message: "Players reset successfully"
+// catch
+    // status code: 500
+    // error: "Error updating player from DB"
+    async function resetPlayersEndpoint(request,response){
+        try{
+            const freshPlayerList = await resetPlayers();
+            return response
+                .status(200)
+                .send({message: "Players reset successfully", freshPlayerList})
+        }
+            
+        catch(error){
+            return response
+                .status(500)
+                .send({error: "Error resetting players in DB"})
+        }
+    
+    };
+    app.put('/resetPlayers', resetPlayersEndpoint);
 
 //sets variable PORT to the port number we are using, 1234
 let PORT = 1234;

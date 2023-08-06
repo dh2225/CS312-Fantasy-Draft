@@ -176,7 +176,7 @@ const AvailablePlayerList = ({ pickingId, teams, updatePickingId, resetCountdown
         resetCountdown(20)
       }
     }
-  };
+  }
 
   const columns = [
     {

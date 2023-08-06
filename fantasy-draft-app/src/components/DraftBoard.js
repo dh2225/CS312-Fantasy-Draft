@@ -55,12 +55,41 @@ class DraftBoard extends Component {
         this.startDraft()
       };
 
-      handleTeamNameClick = () => {
-        let {teams} = this.props
-        const newName = prompt("Enter new team name:");
-        if (newName !== null) {
-          this.setState({ teams: newName });
-        }
+      // handleTeamNameClick = () => {
+      //   const newName = prompt("Enter new team name:");
+      //   if (newName !== null) {
+      //     this.setState({ teams: newName });
+      //   }
+      // }
+
+      handleResetDraft = () => {
+        const apiUrl = 'http://localhost:1234/resetPlayers' 
+    
+        fetch(apiUrl, {
+          method: 'PUT', // Using PUT method to update the players
+          headers: {'Content-Type': 'application/json',}
+        })
+        .then(res=>res.json())
+        .then(json => {
+          console.log(json);
+          fetch('http://localhost:1234/fetchPlayers/')
+          .then((res) => res.json())
+          .then((data) => {
+            const playersData = data.map((player) => ({
+              _id: player._id,
+              adp: player.adp,
+              name: player.name,
+              position: player.position,
+              team: player.team,
+              bye: player.bye,
+              manager: player.manager,
+              status: player.status,
+            }))
+            this.setState({players: playersData})
+          })
+        })
+        // reload webpage on button press
+        window.location.reload()
       }
     
       render() {
@@ -69,7 +98,17 @@ class DraftBoard extends Component {
     
         return (
           <div>
-            {!draftStarted && <button className="startDraftButton" onClick={this.handleStartDraft}>Start Draft</button>}
+            <div className="buttonWrapper">
+              {!draftStarted && (
+                <button className="startDraftButton" onClick={this.handleStartDraft}>
+                Start Draft
+                </button>
+              )}
+
+              <button className="resetDraftButton" onClick={this.handleResetDraft}>
+              Reset Draft
+              </button>
+            </div>
             
             {draftStarted && <div className="countdownDiv">Round {roundNum} - Team {pickingId} is drafting: {countdown} seconds</div>}
 
@@ -81,7 +120,7 @@ class DraftBoard extends Component {
                       padding: '3px',
                       margin: '1px',
                     }}>
-                        <h4 className="teamName" onClick={this.handleTeamNameClick}>{team.name}</h4>
+                        <h4 className="teamName" /*</div>onClick={this.handleTeamNameClick}*/>{team.name}</h4>
                         <ul className="playerList">
                             <li>QB: {team.players.QB}</li>
                             <li>RB1: {team.players.RB1}</li>
