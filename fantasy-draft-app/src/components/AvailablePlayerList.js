@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import DataTable from 'react-data-table-component';
-import DraftBoard from './DraftBoard';
+import React, { useState, useEffect } from 'react'
+import DataTable from 'react-data-table-component'
 
 const AvailablePlayerList = ({ pickingId, teams, updatePickingId, resetCountdown }) => {
-  const [players, setPlayers] = useState([]);
-  const [searchText, setSearchText] = useState('');
+  const [players, setPlayers] = useState([])
+  const [searchText, setSearchText] = useState('')
 
   useEffect(() => {
     fetch('http://localhost:1234/fetchPlayers/')
@@ -19,10 +18,10 @@ const AvailablePlayerList = ({ pickingId, teams, updatePickingId, resetCountdown
           bye: player.bye,
           manager: player.manager,
           status: player.status,
-        }));
-        setPlayers(playersData);
-      });
-  }, []);
+        }))
+        setPlayers(playersData)
+      })
+  }, [])
 
   const handleAddPlayerToTeam = (playerId, playerPosition, playerName) => {
   
@@ -65,7 +64,7 @@ const AvailablePlayerList = ({ pickingId, teams, updatePickingId, resetCountdown
                 }  
               } 
             }
-        } else if (playerPosition === "DST") {
+        } else if (playerPosition === "DEF") {
           // Check if DST slot is full, if so, check flex spots
           if (team.players.DST === null) {
             team.players.DST = playerName
@@ -141,12 +140,12 @@ const AvailablePlayerList = ({ pickingId, teams, updatePickingId, resetCountdown
           }
         }
 
-        const apiUrl = 'http://localhost:1234/updatePlayer'; // Replace with your API endpoint URL
+        const apiUrl = 'http://localhost:1234/updatePlayer' // Replace with your API endpoint URL
 
         const requestData = {
           id: playerId, // playerId as id in the body
           manager: pickingId, // Setting the manager to pickingId prop passed from App.js
-        };
+        }
 
         fetch(apiUrl, {
           method: 'PUT', // Using PUT method to update the player
@@ -168,9 +167,9 @@ const AvailablePlayerList = ({ pickingId, teams, updatePickingId, resetCountdown
               bye: player.bye,
               manager: player.manager,
               status: player.status,
-            }));
-            setPlayers(playersData);
-          });
+            }))
+            setPlayers(playersData)
+          })
         })
 
         updatePickingId()
@@ -216,20 +215,20 @@ const AvailablePlayerList = ({ pickingId, teams, updatePickingId, resetCountdown
       allowOverflow: true,
       button: true,
     },
-  ];
+  ]
 
   // this function uses MongoDB's filter() function to implement our search bar
   const filteredPlayers = players.filter((player) => {
-    const searchTextLowerCase = searchText.toLowerCase();
+    const searchTextLowerCase = searchText.toLowerCase()
     // Can come back and add more fields to search through later
-    const fieldsToSearch = ['name', 'team', 'position']; 
+    const fieldsToSearch = ['name', 'team', 'position']
   
     // Check if any of the fields match the search text
     return fieldsToSearch.some((field) =>
       player[field].toLowerCase().includes(searchTextLowerCase)
-    );
-  });
-  
+    )
+  })
+
 
   return (
     <div className="grid-container">
@@ -253,7 +252,7 @@ const AvailablePlayerList = ({ pickingId, teams, updatePickingId, resetCountdown
         theme='dark'
       />
     </div>
-  );
-};
+  )
+}
 
-export default AvailablePlayerList;
+export default AvailablePlayerList

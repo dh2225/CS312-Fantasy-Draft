@@ -52,7 +52,7 @@ class DraftBoard extends Component {
       }
     
       handleStartDraft = () => {
-        this.startDraft();
+        this.startDraft()
       };
 
       handleTeamNameClick = () => {
@@ -61,17 +61,17 @@ class DraftBoard extends Component {
         if (newName !== null) {
           this.setState({ teams: newName });
         }
-      };
+      }
     
       render() {
-        const { pickingId, teams, countdown } = this.props
+        const { pickingId, teams, countdown, roundNum } = this.props
         const { draftStarted } = this.state
     
         return (
           <div>
             {!draftStarted && <button className="startDraftButton" onClick={this.handleStartDraft}>Start Draft</button>}
             
-            {draftStarted && <div className="countdownDiv">Team {pickingId} is drafting: {countdown} seconds</div>}
+            {draftStarted && <div className="countdownDiv">Round {roundNum} - Team {pickingId} is drafting: {countdown} seconds</div>}
 
             <div className="teamsGrid">
                 {teams.map((team) => (
@@ -98,7 +98,7 @@ class DraftBoard extends Component {
                 ))}
             </div>
           </div>
-        );
+        )
       }
 }
 
