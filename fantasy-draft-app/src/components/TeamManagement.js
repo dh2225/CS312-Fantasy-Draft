@@ -5,6 +5,7 @@ class TeamManagement extends Component {
     super(props)
     this.state = {
       selectedTeamId: null,
+      selectedTeamPlayers: []
     }
   }
 
@@ -12,14 +13,38 @@ class TeamManagement extends Component {
   handleTeamSelect = (event) => {
     const selectedTeamId = event.target.value
     this.setState({ selectedTeamId })
+
+    const apiUrl = 'http://localhost:1234/fetchTeam' 
+    
+    const requestData = {
+        manager: selectedTeamId, // Setting the manager to pickingId prop passed from App.js
+      }
+    
+    fetch(apiUrl, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json',},
+        body: JSON.stringify(requestData),
+    })
+    .then((res) => res.json())
+    .then((data) => {
+      const selectedTeamPlayers = data.map((player) => ({
+        _id: player.id,
+        adp: player.adp,
+        name: player.name,
+        position: player.position,
+        team: player.team,
+        bye: player.bye,
+        manager: player.manager,
+        status: player.status,
+      }));
+      this.setState({ selectedTeamPlayers });
+    })
   }
 
-  
   render() {
     const { teams } = this.props
-    const { selectedTeamId } = this.state
-
-    const selectedTeam = teams.find((team) => team.id === parseInt(selectedTeamId, 10))
+    const { selectedTeamId, selectedTeamPlayers } = this.state
+    
 
     return (
       <div>
@@ -35,24 +60,29 @@ class TeamManagement extends Component {
             ))}
           </select>
         </div>
-        {selectedTeam && (
-          <div>
-            <h2>{selectedTeam.name}</h2>
-            <h4>Players:</h4>
-            <ul className="teamManagementPlayerList">
-                <li>QB: {selectedTeam.players.QB}</li>
-                <li>RB1: {selectedTeam.players.RB1}</li>
-                <li>RB2: {selectedTeam.players.RB2}</li>
-                <li>WR1: {selectedTeam.players.WR1}</li>
-                <li>WR2: {selectedTeam.players.WR2}</li>
-                <li>TE: {selectedTeam.players.TE}</li>
-                <li>FLEX1: {selectedTeam.players.FLEX1}</li>
-                <li>FLEX2: {selectedTeam.players.FLEX2}</li>
-                <li>DST: {selectedTeam.players.DST}</li>
-                <li>K: {selectedTeam.players.K}</li>
-            </ul>
-          </div>
-        )}
+        <div className="grid-container">
+            <div className="grid-header">
+            <div className="grid-column">Position</div>
+            <div className="grid-column">Player Name</div>
+            <div className="grid-column">Team</div>
+            <div className="grid-column">Bye Week</div>
+            <div className="grid-column">ADP</div>
+            </div>
+            <div className="grid-body">
+            {selectedTeamPlayers.map((player) => (
+              <div key={player._id} className="player-row">
+                <div className="grid-column">{player.position}</div>
+                <div className="grid-column">{player.name}</div>
+                <div className="grid-column">{player.team}</div>
+                <div className="grid-column">{player.bye}</div>
+                <div className="grid-column">{player.adp}</div>
+                <div className="grid-column">
+                  <button>Add Player</button>
+                </div>
+              </div>
+            ))}
+            </div>
+        </div>
       </div>
     )
   }

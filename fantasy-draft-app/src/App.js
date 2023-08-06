@@ -27,10 +27,10 @@ class App extends Component {
           K: null,
         },
       })),
-      pickingId: 0,
+      pickingId: 1,
       isRoundEven: false,
       roundNum: 1,
-      countdown: 0,
+      countdown: 20,
     }
   }
 
@@ -63,7 +63,11 @@ class App extends Component {
       // For subsequent rounds, use the snake draft logic
       // During even rounds, we are descending through the draft order
       if (isRoundEven) {
+        
         if (pickingId === 1) {
+          if (roundNum === 10) {
+            return
+          }
           this.setState((prevState) => ({
             isRoundEven: false,
             roundNum: prevState.roundNum + 1,

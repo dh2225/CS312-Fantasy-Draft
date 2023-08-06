@@ -121,4 +121,23 @@ input {
   padding: 0;
   margin: 0;
 }
+
+.grid-header,
+.grid-row {
+  display: flex;
+}
+
+.grid-column {
+  flex: 1;
+  border-right: 1px solid;
+}
+
+.grid-column:last-child {
+  border-right: none;
+}
+
+.grid-header {
+  font-weight: bold;
+  overflow-y: auto;
+}
 /* =================================================================== */

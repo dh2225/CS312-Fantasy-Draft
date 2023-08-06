@@ -141,7 +141,7 @@ const AvailablePlayerList = ({ pickingId, teams, updatePickingId, resetCountdown
           }
         }
 
-        const apiUrl = 'http://localhost:1234/updatePlayer' // Replace with your API endpoint URL
+        const apiUrl = 'http://localhost:1234/updatePlayer' 
 
         const requestData = {
           id: playerId, // playerId as id in the body
