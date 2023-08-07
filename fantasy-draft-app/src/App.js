@@ -138,7 +138,15 @@ class App extends Component {
 
   handleStartDraft = () => {
     this.startDraft()
-  };
+  }
+  
+  handleNameChange = (teamId, newName) => {
+    this.setState((prevState) => ({
+      teams: prevState.teams.map((team) =>
+        team.id === teamId ? { ...team, name: newName } : team
+      ),
+    }))
+  }
   
   render() {
     const { pickingId, teams, isRoundEven, roundNum, countdown, isEndOfDraft, draftStarted } = this.state
@@ -148,7 +156,7 @@ class App extends Component {
         <div className="draftBoard">
           <DraftBoard pickingId={pickingId} teams={teams} isRoundEven={isRoundEven} 
           roundNum={roundNum} countdown={countdown} isEndOfDraft={isEndOfDraft} draftStarted={draftStarted}
-          handleStartDraft={this.handleStartDraft}/>
+          handleStartDraft={this.handleStartDraft} handleNameChange={this.handleNameChange}/>
         </div>
   
         <div className="container">
