@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import DataTable from 'react-data-table-component'
 
-const AvailablePlayerList = ({ pickingId, teams, updatePickingId, resetCountdown }) => {
+const AvailablePlayerList = ({ pickingId, teams, draftStarted, updatePickingId, resetCountdown }) => {
   // hooks
   const [players, setPlayers] = useState([])
   const [searchText, setSearchText] = useState('')
@@ -25,6 +25,10 @@ const AvailablePlayerList = ({ pickingId, teams, updatePickingId, resetCountdown
   }, [])
 
   const handleAddPlayerToTeam = (playerId, playerPosition, playerName) => {
+
+    if (!draftStarted) {
+      return
+    }
   
     // check to make sure the current picking team has slots available for that position
     for (let i=0; i < teams.length; i++) {
@@ -172,9 +176,8 @@ const AvailablePlayerList = ({ pickingId, teams, updatePickingId, resetCountdown
             setPlayers(playersData)
           })
         })
-
-        updatePickingId()
         resetCountdown(20)
+        updatePickingId()
       }
     }
   }

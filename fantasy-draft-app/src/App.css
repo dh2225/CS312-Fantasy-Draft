@@ -4,7 +4,7 @@
 }
 /* ================ All draftBoard Styling goes here ================ */
 .draftBoard {
-  height: 50%;
+  height: 55%;
   width: 100%;
   padding: 3px;
   /* Right border was requiring a horizontal scroll bar to view, 
@@ -42,6 +42,7 @@
   top: 0; /* Align to the top */
   right: 0; /* Align to the right */
   margin: 5px; /* Add some margin for better spacing */
+  
 }
 
 .countdownDiv {
@@ -52,11 +53,12 @@
   display: grid;
   grid-template-columns: repeat(10, 1fr);
   grid-gap: 10px;
-  margin-top: 1px;
+  margin-top: 0.5vh;
 }
 
 .team {
   border: 1px solid black;
+  text-align: left;
 }
 
 .playerList {
@@ -71,7 +73,10 @@
 
 h4 {
   margin: 1vh;
+  text-align: center;
 }
+
+
 
 /* =================================================================== */
 
