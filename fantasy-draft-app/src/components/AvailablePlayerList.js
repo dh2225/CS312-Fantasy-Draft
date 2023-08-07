@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import DataTable from 'react-data-table-component'
 
-const AvailablePlayerList = ({ pickingId, teams, draftStarted, updatePickingId, resetCountdown }) => {
+const AvailablePlayerList = ({ pickingId, teams, draftStarted, roundNum, updatePickingId, resetCountdown }) => {
   // hooks
   const [players, setPlayers] = useState([])
   const [searchText, setSearchText] = useState('')
@@ -17,6 +17,7 @@ const AvailablePlayerList = ({ pickingId, teams, draftStarted, updatePickingId, 
           position: player.position,
           team: player.team,
           bye: player.bye,
+          draftedRound: player.draftedRound,
           manager: player.manager,
           status: player.status,
         }))
@@ -150,6 +151,7 @@ const AvailablePlayerList = ({ pickingId, teams, draftStarted, updatePickingId, 
         const requestData = {
           id: playerId, // playerId as id in the body
           manager: pickingId, // Setting the manager to pickingId prop passed from App.js
+          draftedRound: roundNum,
         }
 
         fetch(apiUrl, {
@@ -170,6 +172,7 @@ const AvailablePlayerList = ({ pickingId, teams, draftStarted, updatePickingId, 
               position: player.position,
               team: player.team,
               bye: player.bye,
+              draftedRound: player.draftedRound, 
               manager: player.manager,
               status: player.status,
             }))

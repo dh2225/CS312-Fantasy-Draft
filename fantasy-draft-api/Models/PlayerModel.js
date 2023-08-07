@@ -16,6 +16,9 @@ const PlayerSchema = mongoose.Schema({
     bye: {
         type: Number,
     },
+    draftedRound: {
+        type: Number,
+    },
     manager: {
         type: String,
     },

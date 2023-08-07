@@ -78,23 +78,21 @@ app.get('/fetchPlayers', fetchPlayersEndpoint);
 //catch
     //status code: 500
     //error: "Error getting team from DB"
-    async function fetchTeamEndpoint(request,response){
-        try{
-            const { manager } = request.body;
-            const team = await fetchTeam(manager);
-            return response
-                .status(200)
-                .json(team); //returns an array instead of a nested object
-        }
+async function fetchTeamEndpoint(request, response) {
+    try {
+        const { manager } = request.query;
+        console.log('Manager ID:', manager); // Log the manager ID to check if it's correct
+        const team = await fetchTeam(manager);
+        console.log('Fetched Team:', team); // Log the team data to check if it's correct
+        return response.status(200).json(team);
+    } catch (error) {
+        console.error('Error fetching team data:', error);
+        return response.status(500).json({ error: "Error getting players from DB" });
+    }
+    }
     
-        catch(error){
-            return response    
-                .status(500)
-                .send({error: "Error getting players from DB"})
-        }
-    };
-    
-    app.get('/fetchTeam', fetchTeamEndpoint);
+      
+app.get('/fetchTeam', fetchTeamEndpoint);
 
 //U - updatePlayerEndpoint
 //API method: PUT
@@ -106,7 +104,7 @@ app.get('/fetchPlayers', fetchPlayersEndpoint);
     //error: "Error updating player from DB"
 async function updatePlayerEndpoint(request,response){
     try{
-        const { id, manager } = request.body;
+        const { id, manager, draftedRound } = request.body;
         const exist = await findPlayerById(id);
         if (!exist) {
            return response
@@ -114,7 +112,7 @@ async function updatePlayerEndpoint(request,response){
                 .send({error: "Player ID does not exist"})
         }
     
-        const player = await updatePlayer(id, manager);
+        const player = await updatePlayer(id, manager, draftedRound);
         return response
             .status(200)
             .send({message: "Player updated successfully", player})

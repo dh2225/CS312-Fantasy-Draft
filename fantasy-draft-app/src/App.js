@@ -154,7 +154,7 @@ class App extends Component {
         <div className="container">
           <div className="availablePlayerList">
             <AvailablePlayerList pickingId={pickingId} teams={teams} countdown={countdown} draftStarted={draftStarted} 
-            updatePickingId={this.updatePickingId} resetCountdown={this.resetCountdown}/>
+            roundNum={roundNum} updatePickingId={this.updatePickingId} resetCountdown={this.resetCountdown}/>
           </div>
   
           <div className="teamManagement">

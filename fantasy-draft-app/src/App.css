@@ -118,31 +118,49 @@ input {
 .teamManagement {
   flex: 1;
   height: 100%;
-  box-sizing: border-box; 
+  box-sizing: border-box;
 }
 
-.teamManagementPlayerList {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+.grid-container {
+  display: table;
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed; /* Add this to make the table cells distribute width evenly */
 }
 
 .grid-header,
 .grid-row {
-  display: flex;
+  display: table-row;
 }
 
 .grid-column {
-  flex: 1;
-  border-right: 1px solid;
+  display: table-cell;
+  padding: 8px;
+  border: 1px solid black;
+}
+
+.grid-header {
+  font-weight: bold;
+}
+
+.grid-body {
+  display: table-row-group;
+}
+
+.grid-body .grid-row {
+  display: table-row;
+}
+
+.grid-body .grid-row .grid-column {
+  display: table-cell;
+  padding: 8px;
+  border: 1px solid black;
 }
 
 .grid-column:last-child {
   border-right: none;
 }
 
-.grid-header {
-  font-weight: bold;
-  overflow-y: auto;
-}
+
+
 /* =================================================================== */

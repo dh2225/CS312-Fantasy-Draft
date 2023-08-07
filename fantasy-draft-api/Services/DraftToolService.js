@@ -24,6 +24,7 @@ const fetchPlayers = async () => {
 
 const fetchTeam = async (manager) => {
     const team = await PlayerModel.find({manager: manager});
+    console.log("Selected Team:", team)
     return team;
 };
 
@@ -32,10 +33,11 @@ const findPlayerById = async (id) => {
     return player;
 }
 
-const updatePlayer = async (id, manager) => {
+const updatePlayer = async (id, manager, draftedRound) => {
     const player = await PlayerModel.findById(id);
     player.manager = manager;
     player.status = false;
+    player.draftedRound = draftedRound;
     await player.save();
     return player;
 };
