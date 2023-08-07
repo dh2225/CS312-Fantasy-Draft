@@ -19,21 +19,21 @@ class TeamManagement extends Component {
         FLEX: 4,
         DEF: 5,
         PK: 6,
-      };
+      }
 
       // uses the built-in sort function to sort our players in the specific order
       // speficied: QB, RB, WR, TE, FLEX, DEF, PK
-      return players.sort((a, b) => positionOrder[a.position] - positionOrder[b.position]);
-    };
+      return players.sort((a, b) => positionOrder[a.position] - positionOrder[b.position])
+    }
 
   // handler to set the selectedTeamId and
   // invoke our fetchTeam endpoint with the
   // selectedTeamId event state as the query parameter
   handleTeamSelect = (event) => {
     const selectedTeamId = event.target.value;
-    this.setState({ selectedTeamId });
+    this.setState({ selectedTeamId })
   
-    const apiUrl = `http://localhost:1234/fetchTeam/?manager=${selectedTeamId}`;
+    const apiUrl = `http://localhost:1234/fetchTeam/?manager=${selectedTeamId}`
   
     fetch(apiUrl, {
       method: 'GET',
@@ -51,14 +51,14 @@ class TeamManagement extends Component {
           draftedRound: player.draftedRound,
           manager: player.manager,
           status: player.status,
-        }));
-        this.setState({ selectedTeamPlayers });
+        }))
+        this.setState({ selectedTeamPlayers })
       })
       .catch((error) => {
         console.error('Error fetching team data:', error);
         // Handle any errors that occurred during the fetch request
-      });
-  };
+      })
+  }
   
 
   // in the render() method we implement a select tag that allows the user to
@@ -71,7 +71,7 @@ class TeamManagement extends Component {
     const { teams } = this.props
     const { selectedTeamId, selectedTeamPlayers } = this.state
 
-    const sortedPlayers = this.sortPlayersByPosition(selectedTeamPlayers);
+    const sortedPlayers = this.sortPlayersByPosition(selectedTeamPlayers)
     
 
     return (

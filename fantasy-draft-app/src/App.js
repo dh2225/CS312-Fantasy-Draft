@@ -111,7 +111,7 @@ class App extends Component {
         }
       }
     }
-  };
+  }
 
   // this function uses setState and previous state to accurately
   // decrement the countdown at the set interval
