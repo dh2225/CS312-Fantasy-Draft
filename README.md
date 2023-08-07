@@ -305,7 +305,7 @@ HTML5, CSS, ReactJS, Node.js, express.js, MongoDB, Postman
 #### Instructions for Running Project Locally:
 1. Clone repository
 2. Install MongoDB
-3. Upload fitlered_players.json to MongoDB
+3. Upload fitlered_players.json to MongoDB (using something like MongoDBCompass)
 4. Navigate to fantasy-draft-api directory
 5. Install required dependencies - npm install
 6. Start API - npm run start
