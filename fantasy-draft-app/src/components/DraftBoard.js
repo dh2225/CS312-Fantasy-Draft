@@ -70,6 +70,10 @@ class DraftBoard extends Component {
     
     return (
       <div>
+        <div className="banner">
+          <img src="/images/transparent_ffdt_banner.png" alt="Fantasy Football Draft Tool" 
+          style={{ width: '13em', height: 'auto', position: 'absolute', top: '0', left: '0', marginTop: '0.5vh' }} />
+        </div>
         <div className="buttonWrapper">
           {!draftStarted && !isEndOfDraft && (
             <button className="startDraftButton" onClick={this.props.handleStartDraft}>
