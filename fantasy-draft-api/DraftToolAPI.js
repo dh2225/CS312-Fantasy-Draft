@@ -81,9 +81,7 @@ app.get('/fetchPlayers', fetchPlayersEndpoint);
 async function fetchTeamEndpoint(request, response) {
     try {
         const { manager } = request.query;
-        console.log('Manager ID:', manager); // Log the manager ID to check if it's correct
         const team = await fetchTeam(manager);
-        console.log('Fetched Team:', team); // Log the team data to check if it's correct
         return response.status(200).json(team);
     } catch (error) {
         console.error('Error fetching team data:', error);
