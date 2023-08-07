@@ -30,7 +30,7 @@ class App extends Component {
       pickingId: 1,
       isRoundEven: false,
       roundNum: 1,
-      countdown: 20,
+      countdown: 60,
       draftStarted: false,
       isEndOfDraft: false,
     }
@@ -128,7 +128,7 @@ class App extends Component {
 
     if (draftStarted && countdown === 0 && !isEndOfDraft) {
       this.updatePickingId();
-      this.resetCountdown(20);
+      this.resetCountdown(60);
     } 
     
     if (isEndOfDraft) {

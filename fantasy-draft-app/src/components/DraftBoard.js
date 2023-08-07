@@ -25,14 +25,11 @@ class DraftBoard extends Component {
     }
   }
     handleTeamNameClick = (teamId) => {
-      let {draftStarted} = this.props
-      
-      if (draftStarted) {
-        const newName = prompt("Enter new team name:");
-        if (newName !== null) {
-        this.props.handleNameChange(teamId, newName)
-        }
+      const newName = prompt("Enter new team name:");
+      if (newName !== null) {
+      this.props.handleNameChange(teamId, newName)
       }
+
   }
 
   handleResetDraft = () => {

@@ -179,7 +179,7 @@ const AvailablePlayerList = ({ pickingId, teams, draftStarted, roundNum, updateP
             setPlayers(playersData)
           })
         })
-        resetCountdown(20)
+        resetCountdown(60)
         updatePickingId()
       }
     }
