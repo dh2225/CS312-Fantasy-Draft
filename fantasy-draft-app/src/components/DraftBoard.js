@@ -53,24 +53,7 @@ class DraftBoard extends Component {
       headers: {'Content-Type': 'application/json',}
     })
     .then(res=>res.json())
-    .then(json => {
-      console.log(json);
-      fetch('http://localhost:1234/fetchPlayers/')
-      .then((res) => res.json())
-      .then((data) => {
-        const playersData = data.map((player) => ({
-          _id: player._id,
-          adp: player.adp,
-          name: player.name,
-          position: player.position,
-          team: player.team,
-          bye: player.bye,
-          manager: player.manager,
-          status: player.status,
-        }))
-        this.setState({players: playersData})
-      })
-    })
+    .then(json => console.log(json))
     // force a reload webpage on button press
     window.location.reload()
   }
