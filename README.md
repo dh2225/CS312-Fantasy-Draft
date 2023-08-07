@@ -293,6 +293,26 @@ For our clean-up process we went through the code and made sure all functions an
 ### Deliverable #6b - Cleanup Back-End Code:
 For our clean-up process we went through the code and made sure all functions and states had comments that accurately describe what is being done. We also removed any unnecessary code that may have been overlooked. We removed all console.log() calls that may have been left over as well.
 
+### Summary of Phase-2 Deliverables
+#### Implemented Features:
+Front-End: In this phase of deliverables the full entirety of the front-end has been implemented. That includes 4 components - App.js, DraftBoard.js, AvailablePlayerList.js, and TeamManagement.js. Through these components the logic and functionality of our fantasy draft website has been establised. A user of the application can expect working features such as a start draft button, reset draft button, draft timer, filtering player list, add player buttons, and a drop down list used to manage the teams in the current draft. The styling of the front-end was implemented through App.css. 
+
+Back-End: Most of the back-end was already implemented in phase 1. However, there are a few implemented features in phase 2. These include the addition of two endpoints resetPlayers and fetchTeam. The PlayerModel schema was also changed to include a new field - draftedRound. Finally, the json file that is used to populate the database was updated to include required fields. All of these back-end changes enabled the implementation of effective front-end logic and functionality. 
+
+#### Technologies Used:
+HTML5, CSS, ReactJS, Node.js, express.js, MongoDB, Postman
+
+#### Instructions for Running Project Locally:
+1. Clone repository
+2. Install MongoDB
+3. Upload fitlered_players.json to MongoDB
+4. Navigate to fantasy-draft-api directory
+5. Install required dependencies - npm install
+6. Start API - npm start
+7. Navigate to fantasy-draft-app directory in another terminal
+8. Install required dependencies - npm install
+9. Start Application - npm start
+
 Please read our full [Project Proposal](https://github.com/dh2225/CS312-Fantasy-Draft/blob/main/project-proposal.md) document for more details on the specifics of our project. 
 
 
