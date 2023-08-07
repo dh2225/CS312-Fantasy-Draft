@@ -308,10 +308,10 @@ HTML5, CSS, ReactJS, Node.js, express.js, MongoDB, Postman
 3. Upload fitlered_players.json to MongoDB
 4. Navigate to fantasy-draft-api directory
 5. Install required dependencies - npm install
-6. Start API - npm start
+6. Start API - npm run start
 7. Navigate to fantasy-draft-app directory in another terminal
 8. Install required dependencies - npm install
-9. Start Application - npm start
+9. Start Application - npm run start
 
 Please read our full [Project Proposal](https://github.com/dh2225/CS312-Fantasy-Draft/blob/main/project-proposal.md) document for more details on the specifics of our project. 
 
