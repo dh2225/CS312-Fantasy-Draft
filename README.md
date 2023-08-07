@@ -176,26 +176,26 @@ The front-end react app utilizes 4 components - App.js, DraftBoard.js, Available
  
  * **updateCountdown:** Decrements the countdown timer. Uses setState and prevState to accurately decrement the countdown at the set interval.
 
-![Alt Text](https://github.com/dh2225/CS312-Fantasy-Draft/blob/main/images/)
+![Alt Text](https://github.com/dh2225/CS312-Fantasy-Draft/blob/main/public/images/app-updateCountdown.png)
 
  * **resetCountdown:** Resets the countdown timer. Has num parameter which is the number of seconds that the countdown is reset to. Sets the state of countdown variable to num parameter.
 
-![Alt Text](https://github.com/dh2225/CS312-Fantasy-Draft/blob/main/public/images/)
+![Alt Text](https://github.com/dh2225/CS312-Fantasy-Draft/blob/main/public/images/app-resetCountdown.png)
 
 * **componentDidMount:** Component Lifecycle Method. Sets initial value of this.interval that is used to manage the countdown timer once the draft is started.
 * **componentWillUnmount:** Component Lifecycle Method. Uses clearInterval function to stop the interval that was setup for the countdown timer.
 * **startDraft:** Starts the draft process. Updates the state of the boolean variable draftStarted to true. Uses setInterval function to call updateCountdown function, setting function to be called every 1000 milliseconds.
 
-![Alt Text](https://github.com/dh2225/CS312-Fantasy-Draft/blob/main/public/images/)
+![Alt Text](https://github.com/dh2225/CS312-Fantasy-Draft/blob/main/public/images/app-startDraft.png)
    
 * **componentDidUpdate:** Component Lifecycle Method used to manage draft flow and update draft order. If the draft has started, the countdown is 0, and the draft has not ended, the picking id will be updated and the countdown will be reset. Essentially skipping that player’s turn. The player will end the draft with an empty spot on the roster due to the skipped turn. If the draft has ended, do nothing. Preventing weird interactions that occur when components are re-rendered.
 
-![Alt Text](https://github.com/dh2225/CS312-Fantasy-Draft/blob/main/public/images/)
+![Alt Text](https://github.com/dh2225/CS312-Fantasy-Draft/blob/main/public/images/app-componentDidUpdate.png)
    
 * **handleStartDraft:** Starts Draft - Passed as prop to Draftboard.js. Invokes startDraft function.
 * **handleNameChange:** Updates name of team upon handleTeamNameClick() in Draftboard.js. Utilizes setState, prevState, and map function to update the name in the state teams array.
 
-![Alt Text](https://github.com/dh2225/CS312-Fantasy-Draft/blob/main/public/images/)
+![Alt Text](https://github.com/dh2225/CS312-Fantasy-Draft/blob/main/public/images/app-handleNameChange.png)
    
 * **render:** The App.js component renders the other components - DraftBoard.js, AvailablePlayerList.js, and TeamManagement.js. Passes appropriate props and functions to each component.
 
@@ -207,11 +207,11 @@ The front-end react app utilizes 4 components - App.js, DraftBoard.js, Available
 * **getRandomColor:** Generates random ASCII color to be used for team borders.
 * **handleResetDraft:** Resets the draft. Invokes the resetPlayers endpoint. Fetches using reset endpoint url and put method updating the status and manager of all players in the database. Reloads the webpage.
 
-![Alt Text](https://github.com/dh2225/CS312-Fantasy-Draft/blob/main/public/images/)
+![Alt Text](https://github.com/dh2225/CS312-Fantasy-Draft/blob/main/public/images/draft-handleResetDraft.png)
 
 * **render:** Renders the startDraftButton, resetDraftButton, end of draft message, and teams (with colored borders). If draft is not started or finished, display the start draft button and reset button. If draft is started but not finished, display current round, picking team, and countdown. If draft is over, display draft is over message. Uses map function to display each team. Uses inline css styling to customize the border colors. Red for picking team and teamColor if not picking. Lists all players on each team by position. The below snippet shows teams.map.
 
-![Alt Text](https://github.com/dh2225/CS312-Fantasy-Draft/blob/main/public/images/)
+![Alt Text](https://github.com/dh2225/CS312-Fantasy-Draft/blob/main/public/images/draft-render.png)
 
 3. **Implementation of AvailablePlayerList.js:** AvailablePlayerList.js is a function component responsible for rendering and displaying all the players with a status that evaluates to true. That means that the player has not been touched by the updatePlayer endpoint or service functions and that the player is free to draft by the next team in the draft. Shows relevant draft data such as ADP, position, player name, bye, and team.
 * Changes made since Phase 1: Originally, this component rendered the available players in a table using grid to style and organize. However, since we decided that our users should have the ability to search, sort and paginate their players, we implemented a package called “react-data-table-component” that has built in sorting and pagination. From there we created a custom search function that uses the built in filter() and includes() functions to search through the players useState() hook. We also added the button that allows the user to add a player to the team that is currently drafting.
@@ -243,25 +243,25 @@ The front-end react app utilizes 4 components - App.js, DraftBoard.js, Available
 * TeamManagement.js has 3 functions that are used to display each team correctly.
 * **sortPlayersByPosition:** Sorts the team according to position for display purposes. Accepts parameter players that are to be sorted. Uses positionOrder to maintain an array of positions with order values. Returns the players sorted by positionOrder.
 
-![Alt Text](https://github.com/dh2225/CS312-Fantasy-Draft/blob/main/public/images/)
+![Alt Text](https://github.com/dh2225/CS312-Fantasy-Draft/blob/main/public/images/tm-sortPlayersByPosition.png)
 
 * **handleTeamSelect:** Handler used to display the correct team that is selected from the drop down. Sets the selectedTeamId to the event target value. Fetches the fetchTeamEndpoint passing the selectedTeamId as query parameter. Maps over player data. The below snippet shows fetch function and data handling. 
 
-![Alt Text](https://github.com/dh2225/CS312-Fantasy-Draft/blob/main/public/images/)
+![Alt Text](https://github.com/dh2225/CS312-Fantasy-Draft/blob/main/public/images/tm-handleTeamSelect.png)
 
 * **render:** Renders the drop down list and selected team. Uses Drop Down List that calls handleTeamsSelect with selectedTeamId as value onChange. Maps over team displaying grid headers and sortedPlayers according to position. The below code snippet shows the grid container and grid body using the sortedPlayers function.
 
-![Alt Text](https://github.com/dh2225/CS312-Fantasy-Draft/blob/main/public/images/)
+![Alt Text](https://github.com/dh2225/CS312-Fantasy-Draft/blob/main/public/images/tm-render.png)
 
 ### Deliverable #2 - Integrate React Code with NodeJS:
 The bulk of this deliverable was completed in Phase-1 with the creation and testing of our API and database. However, throughout Phase-2, our front-end code relied on the successful integration of React code with our API. Our DraftBoard.js, AvailablePlayerList, and TeamManagment.js components each make api requests to fetch player data from the MongoDB database. See the below snippet showing the use of the resetPlayers endpoint in DraftBoard that resets the players in our database, making them available for another draft. 
 
-![Alt Text](https://github.com/dh2225/CS312-Fantasy-Draft/blob/main/public/images/)
+![Alt Text](https://github.com/dh2225/CS312-Fantasy-Draft/blob/main/public/images/deliverable2-1.png)
 
 ### Deliverable #3 - Ensure Data Synchronization:
 This deliverable is used to ensure that the data being manipulated, stored, and retrieved from the database is accurate in both our application as well as our MongoDB database. Thorough testing in Phase-2 showed that the fetch requests, api endpoints, service functions, and database are functioning correctly. See the below screenshot showing our dynamic available player list that is shown through the use of a fetch request, api endpoint, service function, and populated database. 
 
-![Alt Text](https://github.com/dh2225/CS312-Fantasy-Draft/blob/main/public/images/)
+![Alt Text](https://github.com/dh2225/CS312-Fantasy-Draft/blob/main/public/images/deliverable3-1.png)
 
 ### Deliverable #4 - Style Front-End:
 The front-end is styled exclusively using CSS. We utilized both a style sheet and in-line styling for different situations. The only time in-line styling was performed was when there was a specific condition that had to be checked that affected how the component was styled. An example of this was that we wanted the team that is currently drafting to have a thick red border around their team when they are drafting. This meant checking the teams.id with the pickingId and changing the border color accordingly. We have included a picture to illustrate one of these in-line style conditions.
