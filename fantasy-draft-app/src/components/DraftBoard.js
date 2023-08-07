@@ -24,98 +24,102 @@ class DraftBoard extends Component {
        teamColors,
     }
   }
-      // handleTeamNameClick = () => {
-      //   const newName = prompt("Enter new team name:");
-      //   if (newName !== null) {
-      //     this.setState({ teams: newName });
-      //   }
-      // }
-
-      handleResetDraft = () => {
-        const apiUrl = 'http://localhost:1234/resetPlayers' 
-    
-        fetch(apiUrl, {
-          method: 'PUT', // Using PUT method to update the players
-          headers: {'Content-Type': 'application/json',}
-        })
-        .then(res=>res.json())
-        .then(json => {
-          console.log(json);
-          fetch('http://localhost:1234/fetchPlayers/')
-          .then((res) => res.json())
-          .then((data) => {
-            const playersData = data.map((player) => ({
-              _id: player._id,
-              adp: player.adp,
-              name: player.name,
-              position: player.position,
-              team: player.team,
-              bye: player.bye,
-              manager: player.manager,
-              status: player.status,
-            }))
-            this.setState({players: playersData})
-          })
-        })
-        // reload webpage on button press
-        window.location.reload()
+    handleTeamNameClick = (teamId) => {
+      let {draftStarted} = this.props
+      
+      if (draftStarted) {
+        const newName = prompt("Enter new team name:");
+        if (newName !== null) {
+        this.props.handleNameChange(teamId, newName)
+        }
       }
+  }
 
-      render() {
-        const { pickingId, teams, countdown, roundNum, draftStarted, isEndOfDraft } = this.props
-        const { teamColors } = this.state
+  handleResetDraft = () => {
+    const apiUrl = 'http://localhost:1234/resetPlayers' 
 
-        return (
-          <div>
-            <div className="buttonWrapper">
-              {!draftStarted && !isEndOfDraft && (
-                <button className="startDraftButton" onClick={this.props.handleStartDraft}>
-                Start Draft
-                </button>
-              )}
+    fetch(apiUrl, {
+      method: 'PUT', // Using PUT method to update the players
+      headers: {'Content-Type': 'application/json',}
+    })
+    .then(res=>res.json())
+    .then(json => {
+      console.log(json);
+      fetch('http://localhost:1234/fetchPlayers/')
+      .then((res) => res.json())
+      .then((data) => {
+        const playersData = data.map((player) => ({
+          _id: player._id,
+          adp: player.adp,
+          name: player.name,
+          position: player.position,
+          team: player.team,
+          bye: player.bye,
+          manager: player.manager,
+          status: player.status,
+        }))
+        this.setState({players: playersData})
+      })
+    })
+    // reload webpage on button press
+    window.location.reload()
+  }
 
-              <button className="resetDraftButton" onClick={this.handleResetDraft}>
-              Reset Draft
-              </button>
-            </div>
-            
-            {draftStarted && !isEndOfDraft && <div className="countdownDiv">Round {roundNum} - Team {pickingId} is drafting: {countdown} seconds</div>}
-            {isEndOfDraft && <div><h2>Draft is over!</h2></div>}
+  render() {
+    const { pickingId, teams, countdown, roundNum, draftStarted, isEndOfDraft } = this.props
+    const { teamColors } = this.state
 
-            <div className="teamsGrid">
-                {teams.map((team) => (
-                    <div
-                    key={team.id}
-                    className="team"
-                    style={{
-                      border: `3px solid ${
-                        draftStarted && !isEndOfDraft && team.id === pickingId ? 'red' : teamColors[team.id]
-                      }`,
-                      // Add an extra border width when the team is currently drafting
-                      borderWidth: draftStarted && !isEndOfDraft && team.id === pickingId ? '7px' : '3px',
-                      padding: '3px',
-                      margin: '1px',
-                    }}
-                  >
-                        <h4 className="teamName" /*</div>onClick={this.handleTeamNameClick}*/>{team.name}</h4>
-                        <ul className="playerList">
-                            <li>QB: {team.players.QB}</li>
-                            <li>RB1: {team.players.RB1}</li>
-                            <li>RB2: {team.players.RB2}</li>
-                            <li>WR1: {team.players.WR1}</li>
-                            <li>WR2: {team.players.WR2}</li>
-                            <li>TE: {team.players.TE}</li>
-                            <li>FLEX1: {team.players.FLEX1}</li>
-                            <li>FLEX2: {team.players.FLEX2}</li>
-                            <li>DST: {team.players.DST}</li>
-                            <li>K: {team.players.K}</li>
-                        </ul>
-                    </div>
-                ))}
-            </div>
-          </div>
-        )
-      }
+    return (
+      <div>
+        <div className="buttonWrapper">
+          {!draftStarted && !isEndOfDraft && (
+            <button className="startDraftButton" onClick={this.props.handleStartDraft}>
+            Start Draft
+            </button>
+          )}
+
+          <button className="resetDraftButton" onClick={this.handleResetDraft}>
+          Reset Draft
+          </button>
+        </div>
+        
+        {draftStarted && !isEndOfDraft && <div className="countdownDiv">Round {roundNum} - Team {pickingId} is drafting: {countdown} seconds</div>}
+        {isEndOfDraft && <div><h2>Draft is over!</h2></div>}
+
+        <div className="teamsGrid">
+            {teams.map((team) => (
+                <div
+                key={team.id}
+                className="team"
+                style={{
+                  border: `3px solid ${
+                    draftStarted && !isEndOfDraft && team.id === pickingId ? 'red' : teamColors[team.id]
+                  }`,
+                  // Add an extra border width when the team is currently drafting
+                  borderWidth: draftStarted && !isEndOfDraft && team.id === pickingId ? '7px' : '3px',
+                  padding: '3px',
+                  margin: '1px',
+                }}
+              >
+                    <h4 className="teamName" onClick={() => this.handleTeamNameClick(team.id)}>{team.name}</h4>
+                    <ul className="playerList">
+                        <li>QB: {team.players.QB}</li>
+                        <li>RB1: {team.players.RB1}</li>
+                        <li>RB2: {team.players.RB2}</li>
+                        <li>WR1: {team.players.WR1}</li>
+                        <li>WR2: {team.players.WR2}</li>
+                        <li>TE: {team.players.TE}</li>
+                        <li>FLEX1: {team.players.FLEX1}</li>
+                        <li>FLEX2: {team.players.FLEX2}</li>
+                        <li>DST: {team.players.DST}</li>
+                        <li>K: {team.players.K}</li>
+                    </ul>
+                </div>
+            ))}
+        </div>
+      </div>
+    )
+  }
 }
 
 export default DraftBoard
