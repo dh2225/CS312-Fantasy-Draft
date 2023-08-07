@@ -217,24 +217,24 @@ The front-end react app utilizes 4 components - App.js, DraftBoard.js, Available
 * Changes made since Phase 1: Originally, this component rendered the available players in a table using grid to style and organize. However, since we decided that our users should have the ability to search, sort and paginate their players, we implemented a package called “react-data-table-component” that has built in sorting and pagination. From there we created a custom search function that uses the built in filter() and includes() functions to search through the players useState() hook. We also added the button that allows the user to add a player to the team that is currently drafting.
 * Challenges: It was not hard to implement the “react-data-table-component” package as invoking the DataTable custom html tag is straightforward. We did have some trouble getting the “Add Player” button to work properly along with its accompanying functions and methods. The hardest part was actually coding all the conditions that needed to be checked every time a player was added to a new team. Fantasy Football teams have a number of open slots per position, as well as a number of flex spots that can hold any type of player. This meant that as the user clicks the “Add Player” button, the players should be dynamically added to the team in the next available position or be placed in an open flex spot. We have included the conditions that were checked when a wide-receiver is attempted to be added to a team in order to better display what had to be checked for each player to be added properly.
 
-![Alt Text](https://github.com/dh2225/CS312-Fantasy-Draft/blob/main/public/images/availPlayerListSnip.png)
+![Alt Text](https://github.com/dh2225/CS312-Fantasy-Draft/blob/main/public/images/availPlayerListSnip.PNG)
 
 * AvailablePlayerList.js is a function component that utilizes hooks to fetch the player data that is to be displayed.We utilized the useState() and the useEffect() hooks to accurately get and set our playersData as well as search through our playersData with our custom filteredPlayers() function.
  
-![Alt Text](https://github.com/dh2225/CS312-Fantasy-Draft/blob/main/public/images/hooks.png)
+![Alt Text](https://github.com/dh2225/CS312-Fantasy-Draft/blob/main/public/images/hooks.PNG)
 
 * The AvailablePlayerList.js is passed a number of state variables as props as well as the updatePickingID() method and the resetCountdown() method. It consists of two functions called handleAddPlayerToTeam() and filteredPlayers().
 * **handleAddPlayerToTeam():** this function is the handler function that is invoked whenever the “Add Player” button is clicked. First, it completes a large number of if statements to ensure that the player being selected actually has an open slot of the team that is attempting to draft it. If there is an open slot, we first update the teams array (passed as a prop from App.js) to include the new player. Then we make our “/updatePlayer” endpoint call to reflect those changes in the back-end. Finally, this function invokes the resetCountdown() method and the updatePickingId() method (passed as props from App.js) to move the draft along to the next team in the draft (in accordance with our snake draft logic). We included a snapshot of the function, after the if statements.
 
-![Alt Text](https://github.com/dh2225/CS312-Fantasy-Draft/blob/main/public/images/availPlayerHandleAddPlayer.png)
+![Alt Text](https://github.com/dh2225/CS312-Fantasy-Draft/blob/main/public/images/availPlayerHandleAddPlayer.PNG)
 
 * **filteredPlayers():** a small helper function that utilizes the built-in functions filter() and includes() that functions as a search bar.
 
-![Alt Text](https://github.com/dh2225/CS312-Fantasy-Draft/blob/main/public/images/searchFunction.png)
+![Alt Text](https://github.com/dh2225/CS312-Fantasy-Draft/blob/main/public/images/searchFunction.PNG)
 
 * Finally, the last thing to note is that we defined an array called “columns” that outlines the DataTable that is invoked in the return statement. We pass the columns array and the filteredPlayers data to the DataTable to be displayed with sort and pagination capabilities. 
 
-![Alt Text](https://github.com/dh2225/CS312-Fantasy-Draft/blob/main/public/images/dataTable.png)
+![Alt Text](https://github.com/dh2225/CS312-Fantasy-Draft/blob/main/public/images/dataTable.PNG)
  
 4. **Implementation of TeamManagement.js:** TeamManagement.js is a class component that is responsible for displaying each of the teams with their players. The players will be displayed with columns showing positions, player name, team, bye week, adp, and round drafted. In the draft, this will be used by teams to see the outlook of each team allowing for strategizing throughout the draft process.
 * Changes from Phase 1: TeamManagement.js did not exist  in Phase 1, we only had a placeholder div that was styled, therefore all of its code was completed in Phase 2.
@@ -266,14 +266,14 @@ This deliverable is used to ensure that the data being manipulated, stored, and 
 ### Deliverable #4 - Style Front-End:
 The front-end is styled exclusively using CSS. We utilized both a style sheet and in-line styling for different situations. The only time in-line styling was performed was when there was a specific condition that had to be checked that affected how the component was styled. An example of this was that we wanted the team that is currently drafting to have a thick red border around their team when they are drafting. This meant checking the teams.id with the pickingId and changing the border color accordingly. We have included a picture to illustrate one of these in-line style conditions.
 
-![Alt Text](https://github.com/dh2225/CS312-Fantasy-Draft/blob/main/public/images/inlineStyling1.png)
+![Alt Text](https://github.com/dh2225/CS312-Fantasy-Draft/blob/main/public/images/inlineStyling1.PNG)
 
 * **Style Implementation:** First, we created and styled three main wrapper divs that carved out the correct space for our three respective components. This has the draftBoard wrapper extending horizontally across the web page with a width of 100%. The availablePlayerList wrapper and the TeamManagement wrapper are positioned, side-by-side, below the draftBoard wrapper. With these wrapper divs in place, it was much easier to add in our buttons and tables without fear of messing up any styling. From there, all the CSS in the style sheet is organized into groupings by comments. This makes it so that, at a glance, it is easy to see what CSS is styling what part of the page.
 * Changes from Phase 1:: We implemented a large number of style changes that were not and could not be present for Phase 1. Things like the DraftBoard and the TeamManagement table were not included or styled in Phase 1. We also styled buttons to start and reset the draft and we created conditional divs that only display when the draft is over. We themed the Fantasy Draft App to have a “dark” theme feel. Lastly, the TeamManagement table was styled using grid, rather than using the “react-data-table-component”. We felt that the package was too much for the data we were trying to display in the TeamManagement.js component, therefore we implemented grid.
 * Challenges: Implementing the conditional in-line styling was the hardest part about styling this application. As well as getting the “Start Draft” button and the countdown to disappear once the draft is complete.
 * Below we have included a graphic of the Fantasy Draft App in action to show off our styling choices: **Note:** Our pagination feature has been cut off from this graphic because the team player names are pushing it down.
 
-![Alt Text](https://github.com/dh2225/CS312-Fantasy-Draft/blob/main/public/images/styleSnippet)
+![Alt Text](https://github.com/dh2225/CS312-Fantasy-Draft/blob/main/public/images/styleSnippet.PNG)
 
 ### Deliverable #5a - Refactor Front-End Code:
 We refactored a large amount of code in Phase 2 in comparison to Phase 1. The main thing that was refactored was that we removed all of the draft state variables out of DraftBoard.js and moved them into App.js, as well as their accompanying methods. This made it so that our components could reference the draft state much easier and ensured that no complications would be met with state during the draft process. We then passed the relevant state and methods through to each component as props to be further utilized. We also added two more endpoints than we thought we would need. We created a new endpoint called “/fetchTeams” that accepts a manager parameter as a request.body and returns all the players with the matching manager id. We also created another endpoint called “/resetPlayers”. This endpoint is invoked whenever the big red “Reset Draft” button is pressed and it simply changes the manager and status fields to null and true, respectively. The last refactoring we did for the project involved some quality of life and style changes, such as distinguishing which team is currently drafting, adding a reset draft button, and giving each team a random colored border.
