@@ -1,60 +1,29 @@
 import React, { Component } from 'react'
 
+function getRandomColor() {
+  const letters = '0123456789ABCDEF';
+  let color = '#';
+  for (let i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+}
+
 class DraftBoard extends Component {
 
-    constructor(props) {
-      super(props)
-    
-      this.state = {
-         draftStarted: false,
-      }
+  constructor(props) {
+    super(props)
+
+    const teamColors = {};
+    // Generate random colors for each team and store them in the state
+    props.teams.forEach((team) => {
+      teamColors[team.id] = getRandomColor();
+    });
+  
+    this.state = {
+       teamColors,
     }
-
-    componentDidMount() {
-        this.interval = null
-    }
-
-    componentWillUnmount() {
-        clearInterval(this.interval)
-    }
-
-    // startDraft function is responsible for starting the draft timer
-    // and keeping the timer running appropriately
-    startDraft = () => {
-        this.setState({ draftStarted: true })
-        this.interval = setInterval(this.props.updateCountdown, 1000)
-    }
-
-    // function responsible for checking to see if all teams are filled,
-    // if they are, we know to stop the timer and end the draft
-    checkIfAllTeamsFilled = () => {
-        let { teams } = this.props
-        // check to see if all teams have 10 players 
-        // (1QB, 2RB, 2WR, 1TE, 2FLEX, 1DST, 1Kick)
-        return teams.every((team) => team.players.length === 10)
-    }
-
-    componentDidUpdate() {
-      let { countdown } = this.props
-        const { draftStarted } = this.state
-    
-        if (draftStarted && countdown === 0) {
-            
-            this.props.updatePickingId()
-            this.props.resetCountdown(20)
-            
-            if (this.checkIfAllTeamsFilled()) {
-                // Stop the countdown and show a message
-                this.props.resetCountdown(9999)
-                console.alert('All teams are filled!')
-            }
-        }
-      }
-    
-      handleStartDraft = () => {
-        this.startDraft()
-      };
-
+  }
       // handleTeamNameClick = () => {
       //   const newName = prompt("Enter new team name:");
       //   if (newName !== null) {
@@ -91,16 +60,16 @@ class DraftBoard extends Component {
         // reload webpage on button press
         window.location.reload()
       }
-    
+
       render() {
-        const { pickingId, teams, countdown, roundNum } = this.props
-        const { draftStarted } = this.state
-    
+        const { pickingId, teams, countdown, roundNum, draftStarted, isEndOfDraft } = this.props
+        const { teamColors } = this.state
+
         return (
           <div>
             <div className="buttonWrapper">
-              {!draftStarted && (
-                <button className="startDraftButton" onClick={this.handleStartDraft}>
+              {!draftStarted && !isEndOfDraft && (
+                <button className="startDraftButton" onClick={this.props.handleStartDraft}>
                 Start Draft
                 </button>
               )}
@@ -110,16 +79,24 @@ class DraftBoard extends Component {
               </button>
             </div>
             
-            {draftStarted && <div className="countdownDiv">Round {roundNum} - Team {pickingId} is drafting: {countdown} seconds</div>}
+            {draftStarted && !isEndOfDraft && <div className="countdownDiv">Round {roundNum} - Team {pickingId} is drafting: {countdown} seconds</div>}
+            {isEndOfDraft && <div><h2>Draft is over!</h2></div>}
 
             <div className="teamsGrid">
                 {teams.map((team) => (
-                    <div key={team.id} className="team" 
+                    <div
+                    key={team.id}
+                    className="team"
                     style={{
-                      border: `3px solid ${team.id === pickingId ? 'red' : 'black'}`,
+                      border: `3px solid ${
+                        draftStarted && !isEndOfDraft && team.id === pickingId ? 'red' : teamColors[team.id]
+                      }`,
+                      // Add an extra border width when the team is currently drafting
+                      borderWidth: draftStarted && !isEndOfDraft && team.id === pickingId ? '7px' : '3px',
                       padding: '3px',
                       margin: '1px',
-                    }}>
+                    }}
+                  >
                         <h4 className="teamName" /*</div>onClick={this.handleTeamNameClick}*/>{team.name}</h4>
                         <ul className="playerList">
                             <li>QB: {team.players.QB}</li>

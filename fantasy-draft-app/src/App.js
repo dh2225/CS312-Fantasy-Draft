@@ -27,10 +27,12 @@ class App extends Component {
           K: null,
         },
       })),
-      pickingId: 0,
+      pickingId: 1,
       isRoundEven: false,
       roundNum: 1,
-      countdown: 0,
+      countdown: 20,
+      draftStarted: false,
+      isEndOfDraft: false,
     }
   }
 
@@ -59,6 +61,9 @@ class App extends Component {
       this.setState((prevState) => ({
         pickingId: prevState.pickingId + 1,
       }))
+    } else if (roundNum === 10 && pickingId === 1) {
+      this.setState({isEndOfDraft: true})
+      alert("All teams have been filled. The draft is over!")
     } else {
       // For subsequent rounds, use the snake draft logic
       // During even rounds, we are descending through the draft order
@@ -102,24 +107,58 @@ class App extends Component {
   resetCountdown = (num) => {
       this.setState({ countdown: num })
   }
+
+  componentDidMount() {
+    this.interval = null
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval)
+  }
+
+    // startDraft function is responsible for starting the draft timer
+    // and keeping the timer running appropriately
+    startDraft = () => {
+        this.setState({draftStarted: true}) 
+        this.interval = setInterval(this.updateCountdown, 1000)
+    }
+
+  componentDidUpdate(prevProps) {
+    const { countdown, draftStarted, isEndOfDraft } = this.state;
+
+    if (draftStarted && countdown === 0 && !isEndOfDraft) {
+      this.updatePickingId();
+      this.resetCountdown(20);
+    } 
+    
+    if (isEndOfDraft) {
+
+    }
+  }
+
+  handleStartDraft = () => {
+    this.startDraft()
+  };
   
   render() {
-    const { pickingId, teams, isRoundEven, roundNum, countdown } = this.state
+    const { pickingId, teams, isRoundEven, roundNum, countdown, isEndOfDraft, draftStarted } = this.state
     return (
       <div className="App">
         
         <div className="draftBoard">
-          <DraftBoard pickingId={pickingId} teams={teams} isRoundEven={isRoundEven} roundNum={roundNum} countdown={countdown}
-          updatePickingId={this.updatePickingId} updateCountdown={this.updateCountdown} resetCountdown={this.resetCountdown}/>
+          <DraftBoard pickingId={pickingId} teams={teams} isRoundEven={isRoundEven} 
+          roundNum={roundNum} countdown={countdown} isEndOfDraft={isEndOfDraft} draftStarted={draftStarted}
+          handleStartDraft={this.handleStartDraft}/>
         </div>
   
         <div className="container">
           <div className="availablePlayerList">
-            <AvailablePlayerList pickingId={pickingId} teams={teams} updatePickingId={this.updatePickingId} resetCountdown={this.resetCountdown}/>
+            <AvailablePlayerList pickingId={pickingId} teams={teams} countdown={countdown} draftStarted={draftStarted} 
+            roundNum={roundNum} updatePickingId={this.updatePickingId} resetCountdown={this.resetCountdown}/>
           </div>
   
           <div className="teamManagement">
-          <TeamManagement teams={teams}/>
+          <TeamManagement teams={teams} draftStarted={draftStarted}/>
           </div>
   
         </div>

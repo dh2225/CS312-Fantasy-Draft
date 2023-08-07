@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import DataTable from 'react-data-table-component'
 
-const AvailablePlayerList = ({ pickingId, teams, updatePickingId, resetCountdown }) => {
+const AvailablePlayerList = ({ pickingId, teams, draftStarted, roundNum, updatePickingId, resetCountdown }) => {
+  // hooks
   const [players, setPlayers] = useState([])
   const [searchText, setSearchText] = useState('')
 
@@ -16,6 +17,7 @@ const AvailablePlayerList = ({ pickingId, teams, updatePickingId, resetCountdown
           position: player.position,
           team: player.team,
           bye: player.bye,
+          draftedRound: player.draftedRound,
           manager: player.manager,
           status: player.status,
         }))
@@ -24,6 +26,10 @@ const AvailablePlayerList = ({ pickingId, teams, updatePickingId, resetCountdown
   }, [])
 
   const handleAddPlayerToTeam = (playerId, playerPosition, playerName) => {
+
+    if (!draftStarted) {
+      return
+    }
   
     // check to make sure the current picking team has slots available for that position
     for (let i=0; i < teams.length; i++) {
@@ -140,11 +146,12 @@ const AvailablePlayerList = ({ pickingId, teams, updatePickingId, resetCountdown
           }
         }
 
-        const apiUrl = 'http://localhost:1234/updatePlayer' // Replace with your API endpoint URL
+        const apiUrl = 'http://localhost:1234/updatePlayer' 
 
         const requestData = {
           id: playerId, // playerId as id in the body
           manager: pickingId, // Setting the manager to pickingId prop passed from App.js
+          draftedRound: roundNum,
         }
 
         fetch(apiUrl, {
@@ -165,19 +172,20 @@ const AvailablePlayerList = ({ pickingId, teams, updatePickingId, resetCountdown
               position: player.position,
               team: player.team,
               bye: player.bye,
+              draftedRound: player.draftedRound, 
               manager: player.manager,
               status: player.status,
             }))
             setPlayers(playersData)
           })
         })
-
-        updatePickingId()
         resetCountdown(20)
+        updatePickingId()
       }
     }
   }
-
+  
+  // define columns to be used by react-data-table-component
   const columns = [
     {
       name: 'ADP',
@@ -231,7 +239,7 @@ const AvailablePlayerList = ({ pickingId, teams, updatePickingId, resetCountdown
 
 
   return (
-    <div className="grid-container">
+    <div className="avail-player-grid-container">
       <div className="search-bar">
         <input
           type="text"
