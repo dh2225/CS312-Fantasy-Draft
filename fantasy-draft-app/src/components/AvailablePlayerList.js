@@ -25,8 +25,10 @@ const AvailablePlayerList = ({ pickingId, teams, draftStarted, roundNum, updateP
       })
   }, [])
 
+  // responsible for handling when the user clicks the "Add Player" button
   const handleAddPlayerToTeam = (playerId, playerPosition, playerName) => {
 
+    // Don't allow the user to add players to a team without the draft timer commencing
     if (!draftStarted) {
       return
     }
@@ -38,7 +40,7 @@ const AvailablePlayerList = ({ pickingId, teams, draftStarted, roundNum, updateP
       if (team.id === pickingId) {
         // check if the player position being added is full or not
         
-        // check QB first
+        // check QB first, place the player in flex spots if the QB spot is full
         if (playerPosition === "QB") {
           if (team.players.QB === null) {
             team.players.QB = playerName
@@ -146,6 +148,8 @@ const AvailablePlayerList = ({ pickingId, teams, draftStarted, roundNum, updateP
           }
         }
 
+        // now that we have updated the teams state array, lets make the change in the DB
+        // here we invoke our updatePlayer endpoint.
         const apiUrl = 'http://localhost:1234/updatePlayer' 
 
         const requestData = {
@@ -179,6 +183,8 @@ const AvailablePlayerList = ({ pickingId, teams, draftStarted, roundNum, updateP
             setPlayers(playersData)
           })
         })
+        // make sure to update the pickingId to reflect the fact that a user has selected a player
+        // and their draft turn is over. Reset the countdown state as well.
         resetCountdown(60)
         updatePickingId()
       }
@@ -186,6 +192,7 @@ const AvailablePlayerList = ({ pickingId, teams, draftStarted, roundNum, updateP
   }
   
   // define columns to be used by react-data-table-component
+  // includes a custom cell that has our "Add Player" button!
   const columns = [
     {
       name: 'ADP',
@@ -237,7 +244,9 @@ const AvailablePlayerList = ({ pickingId, teams, draftStarted, roundNum, updateP
     )
   })
 
-
+  // invoke the DataTable custom tag we imported at the top of this component
+  // and pass the appropriate data to it. Also include the table
+  // options such as pagination, highligh on hover, striping and theme.
   return (
     <div className="avail-player-grid-container">
       <div className="search-bar">

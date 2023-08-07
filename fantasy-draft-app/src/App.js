@@ -7,6 +7,23 @@ import React, { Component } from 'react'
 
 class App extends Component {
 
+  
+  // Our application has a number of state variables that must be 
+  // managed and passed to different components, hence why they are
+  // in the App.js file. These states include:
+  // 
+  // teams array: This array is 10 teams large, it has a field for id,
+  // name, and a players array.
+  //
+  // pickingId: keeps track of who is currently drafting
+  //
+  // isRoundEven: keeps track of whether or not we are on an even or odd round
+  //
+  // countdown: manages the countdown of the entire draft
+  //
+  // draftStarted: flag to manage when the draft has started
+  //
+  // isEndOfDraft: another flag to manage when the draft has ended
   constructor(props) {
     super(props)
   
@@ -104,42 +121,63 @@ class App extends Component {
       }))
   }
 
+  // this function accepts a single parameter (num) and sets
+  // the countdown state variable to that num variable
   resetCountdown = (num) => {
       this.setState({ countdown: num })
   }
 
+  // The componentDidMount() life cycle method is responsible for initializing
+  // our interval we will be using to manage the countdown logic
   componentDidMount() {
     this.interval = null
   }
 
+  // The componentWillUnmount() life cycle method is responsible for clearing
+  // the interval initialzed in componentDidMount(). It uses the built in
+  // clearInterval() function.
   componentWillUnmount() {
     clearInterval(this.interval)
   }
 
     // startDraft function is responsible for starting the draft timer
-    // and keeping the timer running appropriately
+    // and keeping the timer running appropriately. Utilizes the built in
+    // setInterval() function to invoke our updateCountdown() handler function
+    // at the specfied interval (1000 ms or 1 second).
     startDraft = () => {
         this.setState({draftStarted: true}) 
         this.interval = setInterval(this.updateCountdown, 1000)
     }
 
+  
+  // The componentDidUpdate() life cycle method is responsible for keeping the draft
+  // countdown variable accurate and the pickingId accurate throughout the snake draft.
   componentDidUpdate(prevProps) {
     const { countdown, draftStarted, isEndOfDraft } = this.state;
 
+    // if the draft is started, the countdown is 0 AND we are not 
+    // at the end of the draft, invoke updatePickingId() and resetCountdown()
     if (draftStarted && countdown === 0 && !isEndOfDraft) {
       this.updatePickingId();
       this.resetCountdown(60);
     } 
     
+    // if we are at the end of the draft, DO NOTHING, since this is a life cycle
+    // method, we don't want any funny interactions to occur everytime the component
+    // is re-rendered
     if (isEndOfDraft) {
 
     }
   }
 
+  // invoke our startDraft function, this will be passed as a prop to DraftBoard.js
   handleStartDraft = () => {
     this.startDraft()
   }
   
+  // the setter function that is invoked by handleTeamNameClick() in DraftBoard.js
+  // utilizes setState, prevState and the map function to update the name in the state teams
+  // array
   handleNameChange = (teamId, newName) => {
     this.setState((prevState) => ({
       teams: prevState.teams.map((team) =>
@@ -148,6 +186,7 @@ class App extends Component {
     }))
   }
   
+  // render our three components and pass the appropriate props and functions to each component
   render() {
     const { pickingId, teams, isRoundEven, roundNum, countdown, isEndOfDraft, draftStarted } = this.state
     return (

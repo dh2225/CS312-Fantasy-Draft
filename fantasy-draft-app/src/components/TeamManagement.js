@@ -20,11 +20,15 @@ class TeamManagement extends Component {
         DEF: 5,
         PK: 6,
       };
-  
+
+      // uses the built-in sort function to sort our players in the specific order
+      // speficied: QB, RB, WR, TE, FLEX, DEF, PK
       return players.sort((a, b) => positionOrder[a.position] - positionOrder[b.position]);
     };
 
-  // handler to set the selectedTeamId
+  // handler to set the selectedTeamId and
+  // invoke our fetchTeam endpoint with the
+  // selectedTeamId event state as the query parameter
   handleTeamSelect = (event) => {
     const selectedTeamId = event.target.value;
     this.setState({ selectedTeamId });
@@ -37,8 +41,6 @@ class TeamManagement extends Component {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log('API Response Data:', data); // Log the raw data received from the API
-  
         const selectedTeamPlayers = data.map((player) => ({
           _id: player.id,
           adp: player.adp,
@@ -50,7 +52,6 @@ class TeamManagement extends Component {
           manager: player.manager,
           status: player.status,
         }));
-        console.log('Selected Team Players:', selectedTeamPlayers); // Log the selectedTeamPlayers array
         this.setState({ selectedTeamPlayers });
       })
       .catch((error) => {
@@ -60,6 +61,12 @@ class TeamManagement extends Component {
   };
   
 
+  // in the render() method we implement a select tag that allows the user to
+  // interact with a drop down menu. When clicked, the menu invokes the
+  // handleTeamSelect() function which invokes the handleNameChange() method that
+  // is passed as a prop from App.js to TeamManagement.js. It then displays the
+  // team is a nice grid table with the position, name, team, bye and round drafted
+  // of each player with a manager field that matches the selected team id.
   render() {
     const { teams } = this.props
     const { selectedTeamId, selectedTeamPlayers } = this.state
