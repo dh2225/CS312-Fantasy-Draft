@@ -2,7 +2,7 @@
 # CS312-Fantasy-Draft
 CS312 Web Programming II - In-person Fantasy Football Draft Tool using React &amp; NodeJS
 
-Try our application yourself: https://brandonbjs.github.io/FF-Draft-Tool-Build/
+Try our application yourself: https://brandonbjs.github.io/FFDT-gh-pages/
 
 ## Team Information:
 * Brandon James Shaffer
